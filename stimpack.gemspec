@@ -1,4 +1,4 @@
-require_relative 'lib/stimpack/version'
+require_relative "lib/stimpack/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "stimpack"
@@ -6,10 +6,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ngan Pham"]
   spec.email         = ["gusto-opensource-buildkite@gusto.com"]
 
-  spec.summary       = %q{Name hold for upcoming gem}
-  spec.description   = %q{Name hold for upcoming gem}
+  spec.summary       = "A Rails helper to package your code."
+  spec.description   = "Package your code."
   spec.homepage      = "https://github.com/Gusto/stimpack"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.7")
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/Gusto/stimpack"
@@ -19,4 +19,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = Dir["exe/*"].map { |exe| File.basename(exe) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "rails"
+
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
 end
