@@ -10,7 +10,7 @@ module Stimpack
   autoload :Settings
   autoload :Stim
   autoload :Railtie
-  autoload :Require
+  # autoload :Require
   autoload :ZeitwerkProxy
 
   class Error < StandardError; end
@@ -30,7 +30,7 @@ module Stimpack
     def finalize!
       @finalized = @finalized ? return : true
 
-      Require.setup
+      # Require.setup
     end
 
     def autoloader(original)

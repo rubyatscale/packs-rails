@@ -1,3 +1,3 @@
 module Stimpack
-  VERSION = "1.0.0.alpha1".freeze
+  VERSION = "1.0.0.alpha2".freeze
 end
