@@ -33,7 +33,7 @@ module Stimpack
     # alias_method :implicit_namespace?, :implicit_namespace
 
     def isolate_namespace
-      @config.fetch("isolate_namespace", true)
+      @config.fetch("isolate_namespace", false)
     end
     alias_method :isolate_namespace?, :isolate_namespace
   end
