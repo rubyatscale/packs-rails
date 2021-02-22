@@ -9,15 +9,16 @@ module Stimpack
 
     class << self
       def resolve
-        PATH.glob("**/#{Settings::PACKWERK_PACKAGE_CONFIG}").each do |path|
+        PATH.glob("**/#{Settings::PACK_CONFIG}").each do |path|
           path = path.dirname
           create(path.relative_path_from(PATH).to_s, path.expand_path)
         end
       end
 
       def create(name, path)
-        namespace = create_namespace(name)
-        stim = Stim.new(path)
+        settings = Settings.new(name, path)
+        namespace = create_namespace(settings.engine? ? Object : self, name)
+        stim = Stim.new(settings, namespace)
         @packs[name] = namespace.const_set(PACK_CLASS, Class.new(Rails::Engine)).include(stim)
       end
 
@@ -39,13 +40,13 @@ module Stimpack
 
       private
 
-      def create_namespace(name)
+      def create_namespace(base, name)
         namespace = ActiveSupport::Inflector.camelize(name)
-        namespace.split("::").reduce(Object) do |base, mod|
-          if base.const_defined?(mod)
-            base.const_get(mod)
+        namespace.split("::").reduce(base) do |current_base, mod|
+          if current_base.const_defined?(mod)
+            current_base.const_get(mod)
           else
-            base.const_set(mod, Module.new)
+            current_base.const_set(mod, Module.new)
           end
         end
       end

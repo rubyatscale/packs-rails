@@ -2,39 +2,32 @@
 
 module Stimpack
   class Settings
-    PACKWERK_PACKAGE_CONFIG = "package.yml"
+    PACK_CONFIG = "package.yml"
 
-    def initialize(pack)
-      @pack = pack
+    attr_reader :name
+    attr_reader :path
 
-      package_config = YAML.load_file(pack.root.join(PACKWERK_PACKAGE_CONFIG)) || {}
-      @config = package_config.fetch("metadata", {}).freeze
-    end
-
-    def path
-      @pack.called_from
+    def initialize(name, path)
+      @name = name
+      @path = path
     end
 
     def relative_path
-      @relative_path ||= path.relative_path_from(Rails.root)
+      Rails.root.relative_path_from(@path)
     end
 
-    def name
-      @name ||= ActiveSupport::Inflector.underscore(namespace.name)
+    def engine
+      config.fetch("engine", false)
     end
+    alias_method :engine?, :engine
 
-    def namespace
-      @pack.module_parent
+    private
+
+    def config
+      @config ||= begin
+        package_config = YAML.load_file(path.join(PACK_CONFIG))
+        package_config.fetch("metadata", {}).freeze
+      end
     end
-
-    # def implicit_namespace
-    #   @config.fetch("implicit_namespace", true)
-    # end
-    # alias_method :implicit_namespace?, :implicit_namespace
-
-    def isolate_namespace
-      @config.fetch("isolate_namespace", false)
-    end
-    alias_method :isolate_namespace?, :isolate_namespace
   end
 end

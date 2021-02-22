@@ -4,23 +4,17 @@ require "rails"
 module Stimpack
   extend ActiveSupport::Autoload
 
-  # autoload :Require
-  autoload :Autoloaders
   autoload :Integrations
   autoload :Packs
   autoload :Railtie
   autoload :Settings
   autoload :Stim
-  autoload :ZeitwerkProxy
 
   class Error < StandardError; end
 
   class << self
     def start!
       @started = @started ? return : true
-
-      # Override Rails' autoloader accessors.
-      # Rails::Autoloaders.singleton_class.prepend(Autoloaders)
 
       Packs.resolve
 
@@ -29,15 +23,6 @@ module Stimpack
 
     def finalize!
       @finalized = @finalized ? return : true
-
-      # Require.setup
-    end
-
-    def autoloader(original)
-      return original if @finalized
-
-      @autoloader_proxies ||= {}
-      @autoloader_proxies[original] ||= ZeitwerkProxy.new(original)
     end
 
     def [](name)
@@ -54,5 +39,3 @@ module Stimpack
 end
 
 require "stimpack/railtie"
-# require "stimpack/require"
-# require "stimpack/kernel"
