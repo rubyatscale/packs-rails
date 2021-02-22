@@ -5,6 +5,7 @@ require "rails"
 module Stimpack
   module Packs
     PATH = Pathname.new("packs").freeze
+    PACK_CLASS = "Pack".freeze
 
     class << self
       def resolve
@@ -15,9 +16,9 @@ module Stimpack
       end
 
       def create(name, path)
-        pack_class = ActiveSupport::Inflector.camelize(name).gsub("::", "_")
+        namespace = create_namespace(name)
         stim = Stim.new(path)
-        @packs[name] = const_set(pack_class, Class.new(Rails::Engine)).include(stim)
+        @packs[name] = namespace.const_set(PACK_CLASS, Class.new(Rails::Engine)).include(stim)
       end
 
       def find(path)
@@ -34,6 +35,19 @@ module Stimpack
 
       def each(*args, &block)
         @packs.each_value(*args, &block)
+      end
+
+      private
+
+      def create_namespace(name)
+        namespace = ActiveSupport::Inflector.camelize(name)
+        namespace.split("::").reduce(Object) do |base, mod|
+          if base.const_defined?(mod)
+            base.const_get(mod)
+          else
+            base.const_set(mod, Module.new)
+          end
+        end
       end
     end
 
