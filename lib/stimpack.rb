@@ -4,13 +4,13 @@ require "rails"
 module Stimpack
   extend ActiveSupport::Autoload
 
-  autoload :Integrations
+  # autoload :Require
   autoload :Autoloaders
+  autoload :Integrations
   autoload :Packs
+  autoload :Railtie
   autoload :Settings
   autoload :Stim
-  autoload :Railtie
-  # autoload :Require
   autoload :ZeitwerkProxy
 
   class Error < StandardError; end
