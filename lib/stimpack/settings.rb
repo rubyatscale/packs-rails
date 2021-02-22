@@ -13,7 +13,7 @@ module Stimpack
     end
 
     def relative_path
-      Rails.root.relative_path_from(@path)
+      @path.relative_path_from(Rails.root)
     end
 
     def engine
