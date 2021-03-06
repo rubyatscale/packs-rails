@@ -1,19 +1,28 @@
 module Stimpack
   class Stim < Module
-    def initialize(settings, namespace)
-      @settings = settings
+    def initialize(pack, namespace)
+      @pack = pack
       @namespace = namespace
       super()
     end
 
     def included(engine)
-      engine.attr_accessor(:settings)
-      engine.settings = @settings
-      engine.called_from = @settings.path
+      engine.called_from = @pack.path
       engine.extend(ClassMethods)
+      engine.isolate_namespace(@namespace)
 
-      if @settings.engine?
-        engine.isolate_namespace(@namespace)
+      # Set all of these paths to nil because we want the Rails integration to take
+      # care of them. The purpose of this Engine is really just for the namespace
+      # isolation.
+      (Stimpack::Integrations::Rails::PATHS +
+        # In addition to the paths we've delegated to the main app, we don't allow
+        # Engine Packs to have various capabilities.
+        %w(
+          config/environments
+          db/migrate
+        )
+      ).uniq.each do |path|
+        engine.paths[path] = nil
       end
     end
 

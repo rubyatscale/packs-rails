@@ -5,35 +5,24 @@ module Stimpack
   extend ActiveSupport::Autoload
 
   autoload :Integrations
+  autoload :Pack
   autoload :Packs
   autoload :Railtie
-  autoload :Settings
   autoload :Stim
 
   class Error < StandardError; end
 
   class << self
-    def start!
-      @started = @started ? return : true
-
+    def load(app)
       Packs.resolve
 
-      install_integrations
-    end
-
-    def finalize!
-      @finalized = @finalized ? return : true
+      Integrations::Rails.install(app)
+      Integrations::FactoryBot.install(app)
+      Integrations::RSpec.install(app)
     end
 
     def [](name)
       Packs[name.to_s]
-    end
-
-    private
-
-    def install_integrations
-      Integrations::FactoryBot.install
-      Integrations::RSpec.install
     end
   end
 end

@@ -1,32 +1,30 @@
+# frozen_string_literal: true
+
 require "active_support"
 require "pathname"
 require "rails"
 
 module Stimpack
   module Packs
-    PATH = Pathname.new("packs").freeze
-    PACK_CLASS = "Pack".freeze
+    PACK_CLASS = "Pack"
 
     class << self
       def resolve
-        PATH.glob("**/#{Settings::PACK_CONFIG}").each do |path|
-          path = path.dirname
-          create(path.relative_path_from(PATH).to_s, path.expand_path)
-        end
-      end
+        # Gather all the directories with package config files.
+        paths = filter(Pack.root.glob("**/#{Pack::Configuration::FILE}").map(&:dirname).sort)
 
-      def create(name, path)
-        settings = Settings.new(name, path)
-        namespace = create_namespace(settings.engine? ? Object : self, name)
-        stim = Stim.new(settings, namespace)
-        @packs[name] = namespace.const_set(PACK_CLASS, Class.new(Rails::Engine)).include(stim)
+        # Create thes packs.
+        paths.each do |path|
+          pack = Pack.new(path)
+          @packs[pack.name] = pack
+        end
       end
 
       def find(path)
         path = "#{path}/"
 
         @packs.values.find do |pack|
-          path.start_with?("#{pack.root}/")
+          path.start_with?("#{pack.path}/")
         end
       end
 
@@ -40,13 +38,14 @@ module Stimpack
 
       private
 
-      def create_namespace(base, name)
-        namespace = ActiveSupport::Inflector.camelize(name)
-        namespace.split("::").reduce(base) do |current_base, mod|
-          if current_base.const_defined?(mod)
-            current_base.const_get(mod)
-          else
-            current_base.const_set(mod, Module.new)
+      def filter(paths)
+        # Reject all paths that are nested since they might be just packwerk
+        # packages instead of packs.
+        paths.reject do |path|
+          path = "#{path}/"
+          paths.any? do |other_path|
+            other_path = "#{other_path}/"
+            path != other_path && path.start_with?(other_path)
           end
         end
       end
