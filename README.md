@@ -1,35 +1,73 @@
 # Stimpack
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/stimpack`. To experiment with that code, run `bin/console` for an interactive prompt.
+`stimpack` makes integrating with [`packwerk`](https://github.com/Shopify/packwerk) easy and establishes conventions such that packwerk packages mimic the feel and structure of [Rails engines](https://guides.rubyonrails.org/engines.html), without all of the boiler plate. With `stimpack`, new packages' autoload paths are automatically added to Rails, so your code will immediately become usable and loadable without additional configuration.
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem "stimpack"
+Here is an example application that uses `stimpack`:
 ```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install stimpack
+package.yml # root level pack
+app/ # Unpackaged code
+  models/
+  ...
+packs/ # This is not yet configurable, but we're working on it!
+  my_domain/
+    package.yml # See the packwerk docs for more info
+    deprecated_references.yml # See the packwerk docs for more info
+    app/
+      public/ # Recommended location for public API
+        my_domain.rb # creates the primary namespaces
+        my_domain/
+          my_subdomain.rb
+      services/ # Private services
+        my_domain/
+          some_private_class.rb
+      models/ # Private models
+        some_other_non_namespaced_private_model.rb # this works too
+        my_domain/
+          my_private_namespacd_model.rb
+      config/
+        initializers/ # Initializers can live in packs and load as expected
+      controllers/
+      views/
+      lib/
+        tasks/
+    spec/ # With stimpack, specs for a pack live next to the pack
+      public/
+        my_domain_spec.rb
+        my_domain/
+          my_subdomain_spec.rb
+      services/
+        my_domain/
+          some_private_class_spec.rb
+      models/
+        some_other_non_namespaced_private_model_spec.rb
+        my_domain/
+          my_private_namespaced_model_spec.rb
+      factories/ # Stimpack will automatically load pack factories into FactoryBot
+        my_domain/
+          my_private_namespaced_model_factory.rb
+  my_other_domain/
+    ... # other pack's have a similar structure
+  my_other_other_domain/
+    ...
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Setting up `stimpack` is straightforward. Simply by including `stimpack` in your `Gemfile` in all environments, `stimpack` will automatically hook into and configure Rails.
 
-## Development
+From there, you can create a `./packs` folder and structure it using the conventions listed above.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Making your Package an Engine
+Add `engine: true` to your `package.yml` to make it an actual Rails engine:
+```yml
+# packs/my_pack/package.yml
+enforce_dependencies: true
+enforce_privacy: true
+metadata:
+  engine: true
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ngan/stimpack.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Gusto/stimpack.
