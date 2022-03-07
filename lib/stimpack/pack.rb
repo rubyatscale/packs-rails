@@ -8,13 +8,9 @@ module Stimpack
     attr_reader :path
     attr_reader :engine
 
-    def self.root
-      @root ||= Rails.root.join("packs")
-    end
-
     def initialize(path)
       @path = path
-      @name = path.relative_path_from(self.class.root)
+      @name = path.relative_path_from(Packs.root)
 
       if config.engine?
         @engine = create_engine

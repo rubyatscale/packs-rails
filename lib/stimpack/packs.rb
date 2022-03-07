@@ -6,18 +6,18 @@ require "rails"
 
 module Stimpack
   module Packs
-    PACK_CLASS = "Pack"
-
     class << self
-      def resolve
-        # Gather all the directories with package config files.
-        paths = filter(Pack.root.glob("**/#{Pack::Configuration::FILE}").map(&:dirname).sort)
+      def root
+        @root ||= Rails.root.join(Stimpack.config.root)
+      end
 
-        # Create thes packs.
-        paths.each do |path|
+      def resolve
+        # Gather all the packs under the root directory and create packs.
+        root.children.select(&:directory?).sort!.each do |path|
           pack = Pack.new(path)
           @packs[pack.name] = pack
         end
+        @packs.freeze
       end
 
       def find(path)
@@ -34,20 +34,6 @@ module Stimpack
 
       def each(*args, &block)
         @packs.each_value(*args, &block)
-      end
-
-      private
-
-      def filter(paths)
-        # Reject all paths that are nested since they might be just packwerk
-        # packages instead of packs.
-        paths.reject do |path|
-          path = "#{path}/"
-          paths.any? do |other_path|
-            other_path = "#{other_path}/"
-            path != other_path && path.start_with?(other_path)
-          end
-        end
       end
     end
 

@@ -14,7 +14,7 @@ module Stimpack
       # Set all of these paths to nil because we want the Rails integration to take
       # care of them. The purpose of this Engine is really just for the namespace
       # isolation.
-      (Stimpack::Integrations::Rails::PATHS +
+      (Stimpack.config.paths +
         # In addition to the paths we've delegated to the main app, we don't allow
         # Engine Packs to have various capabilities.
         %w(
