@@ -8,7 +8,7 @@ package.yml # root level pack
 app/ # Unpackaged code
   models/
   ...
-packs/ # This is not yet configurable, but we're working on it!
+packs/
   my_domain/
     package.yml # See the packwerk docs for more info
     deprecated_references.yml # See the packwerk docs for more info
