@@ -3,11 +3,10 @@
 module Stimpack
   class Pack
     class Configuration
-      FILE = "package.yml"
       KEY = "metadata"
 
-      def initialize(pack)
-        @pack = pack
+      def initialize(path)
+        @path = path
       end
 
       def engine
@@ -18,7 +17,7 @@ module Stimpack
       private
 
       def data
-        @data ||= YAML.load_file(@pack.path.join(FILE)).fetch(KEY, {}).freeze
+        @data ||= YAML.load_file(@path).fetch(KEY, {}).freeze
       end
     end
   end

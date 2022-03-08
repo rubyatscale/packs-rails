@@ -2,11 +2,17 @@
 
 module Stimpack
   class Pack
+    PACKAGE_FILE = "package.yml"
+
     autoload :Configuration, "stimpack/pack/configuration"
 
     attr_reader :name
     attr_reader :path
     attr_reader :engine
+
+    def self.create(path)
+      new(path) if path.join(PACKAGE_FILE).exist?
+    end
 
     def initialize(path)
       @path = path
@@ -22,7 +28,7 @@ module Stimpack
     end
 
     def config
-      @config ||= Configuration.new(self)
+      @config ||= Configuration.new(path.join(PACKAGE_FILE))
     end
 
     private
