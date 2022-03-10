@@ -1,6 +1,6 @@
 # Stimpack
 
-`stimpack` makes integrating with [`packwerk`](https://github.com/Shopify/packwerk) easy and establishes conventions such that packwerk packages mimic the feel and structure of [Rails engines](https://guides.rubyonrails.org/engines.html), without all of the boilerplate. With `stimpack`, new packages' autoload paths are automatically added to Rails, so your code will immediately become usable and loadable without additional configuration.
+`stimpack` establishes and implements a set of conventions for splitting up large monoliths built on top of [`packwerk`](https://github.com/Shopify/packwerk). With `stimpack`, new packages' autoload paths are automatically added to Rails, so your code will immediately become usable and loadable without additional configuration.
 
 Here is an example application that uses `stimpack`:
 ```
