@@ -24,12 +24,12 @@ packs/
         some_other_non_namespaced_private_model.rb # this works too
         my_domain/
           my_private_namespacd_model.rb
-      config/
-        initializers/ # Initializers can live in packs and load as expected
       controllers/
       views/
-      lib/
-        tasks/
+    config/
+      initializers/ # Initializers can live in packs and load as expected
+    lib/
+      tasks/
     spec/ # With stimpack, specs for a pack live next to the pack
       public/
         my_domain_spec.rb
