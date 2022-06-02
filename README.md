@@ -71,6 +71,17 @@ module MyCoolApp
 end
 ```
 
+### Splitting routes
+`stimpack` allows you to split your application routes for every pack. You just have to create a file describing your routes and then `draw` them in your root `config/routes.rb` file.
+
+```ruby
+# packs/my_domain/config/routes/my_domain.rb
+resources :my_resource
+
+# config/routes.rb
+draw(:my_domain)
+```
+
 ### Making your Package an Engine
 Add `engine: true` to your `package.yml` to make it an actual Rails engine:
 ```yml
