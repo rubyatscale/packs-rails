@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["gusto-opensource-buildkite@gusto.com"]
 
   spec.summary       = "A Rails helper to package your code."
-  spec.description   = "Package your code."
+  spec.description   = "stimpack establishes and implements a set of conventions for splitting up large monoliths."
   spec.homepage      = "https://github.com/Gusto/stimpack"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7")
 
