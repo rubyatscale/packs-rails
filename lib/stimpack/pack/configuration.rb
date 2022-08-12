@@ -17,7 +17,10 @@ module Stimpack
       private
 
       def data
-        @data ||= YAML.load_file(@path).fetch(KEY, {}).freeze
+        @data ||= begin
+          contents = YAML.safe_load_file(@path) || {}
+          contents.fetch(KEY, {}).freeze
+        end
       end
     end
   end
