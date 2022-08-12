@@ -12,8 +12,9 @@ module Stimpack
       end
 
       def resolve
-        # Gather all the packs under the root directory and create packs.
-        root.children.select(&:directory?).sort!.each do |path|
+        # Gather all the parent packs and the children packs.
+        package_locations = root.glob('*/{package.yml,*/package.yml}').map(&:dirname)
+        package_locations.sort!.each do |path|
           next unless pack = Pack.create(path)
           @packs[pack.name] = pack
         end
