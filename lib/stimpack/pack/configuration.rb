@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "yaml"
+
 module Stimpack
   class Pack
     class Configuration
@@ -18,7 +20,8 @@ module Stimpack
 
       def data
         @data ||= begin
-          contents = YAML.safe_load_file(@path) || {}
+          contents = YAML.respond_to?(:safe_load_file) ? YAML.safe_load_file(@path) : YAML.load_file(@path)
+          contents ||= {}
           contents.fetch(KEY, {}).freeze
         end
       end
