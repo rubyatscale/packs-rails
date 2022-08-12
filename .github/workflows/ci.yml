@@ -1,0 +1,43 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - 2.7
+          # See comment comes from https://github.com/ruby/setup-ruby#matrix-of-ruby-versions
+          # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
+          - '3.0'
+          - 3.1
+          - head
+    env:
+      BUNDLE_GEMFILE: Gemfile
+    name: "Tests: Ruby ${{ matrix.ruby }}"
+    steps:
+      - uses: actions/checkout@5126516654c75f76bca1de45dd82a3006d8890f9
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@bd94d6a504586da892a5753afdd1480096ed30df
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Run tests
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rspec
+  static-type-checking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5126516654c75f76bca1de45dd82a3006d8890f9
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@bd94d6a504586da892a5753afdd1480096ed30df
+        with:
+          ruby-version: head
+      - name: Run static type checks
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec srb tc
