@@ -24,7 +24,7 @@ module Stimpack
       def find(path)
         path = "#{path}/"
 
-        @packs.values.find do |pack|
+        @packs.values.reverse.find do |pack|
           path.start_with?("#{pack.path}/")
         end
       end
