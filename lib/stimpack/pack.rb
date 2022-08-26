@@ -34,7 +34,7 @@ module Stimpack
     private
 
     def create_engine
-      namespace = create_namespace(name)
+      namespace = create_namespace(name.basename)
       stim = Stim.new(self, namespace)
       namespace.const_set("Engine", Class.new(Rails::Engine)).include(stim)
     end
