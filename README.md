@@ -92,6 +92,14 @@ metadata:
   engine: true
 ```
 
+### RSpec Integration
+It's highly recommended that you add `--require stimpack/rspec` to your `.rspec` file to keep things simply.
+Or, if you'd like, pass it as an argument to `rspec`:
+
+```
+$ rspec --require stimpack/rspec ...
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/Gusto/stimpack.
