@@ -1,4 +1,5 @@
 require "active_support"
+require "rails/application"
 
 module Stimpack
   extend ActiveSupport::Autoload
@@ -14,16 +15,12 @@ module Stimpack
   class << self
     attr_reader :config
 
-    def load(app)
-      Packs.resolve
-
-      Integrations::Rails.install(app)
-      Integrations::FactoryBot.install(app)
-      Integrations::RSpec.install(app)
+    def packs_root
+      @root ||= app_root.join(config.root)
     end
 
-    def [](name)
-      Packs[name.to_s]
+    def app_root
+      @app_root ||= Rails::Application.find_root(Dir.pwd)
     end
   end
 
@@ -44,6 +41,8 @@ module Stimpack
     config/initializers
     config/routes
   )
+  # (0) / -> (1) /packs -> (2) /packs/foo/bar
+  @config.max_levels = 2
 end
 
 require "stimpack/railtie"
