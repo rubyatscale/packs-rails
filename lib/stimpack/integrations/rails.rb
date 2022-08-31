@@ -43,7 +43,7 @@ module Stimpack
       end
 
       def create_engine(pack)
-        name = pack.path.relative_path_from(Stimpack.packs_root)
+        name = pack.path.relative_path_from(Stimpack::Packs.root)
         namespace = create_namespace(pack.name)
         stim = Stim.new(pack, namespace)
         namespace.const_set("Engine", Class.new(::Rails::Engine)).include(stim)

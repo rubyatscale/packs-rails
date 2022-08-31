@@ -15,12 +15,8 @@ module Stimpack
   class << self
     attr_reader :config
 
-    def packs_root
-      @root ||= app_root.join(config.root)
-    end
-
-    def app_root
-      @app_root ||= Rails::Application.find_root(Dir.pwd)
+    def root
+      @root ||= Rails::Application.find_root(Dir.pwd)
     end
   end
 
@@ -41,8 +37,6 @@ module Stimpack
     config/initializers
     config/routes
   )
-  # (0) / -> (1) /packs -> (2) /packs/foo/bar
-  @config.max_levels = 2
 end
 
 require "stimpack/railtie"

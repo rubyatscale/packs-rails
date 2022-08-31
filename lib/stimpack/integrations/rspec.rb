@@ -29,7 +29,7 @@ module Stimpack
             if pack = Packs.all_by_path[path]
               [
                 pack,
-                *pack.all_children
+                *Packs.all(pack)
               ].map do |pack|
                 spec_path = pack.relative_path.join(default_path)
                 spec_path.to_s if spec_path.exist?

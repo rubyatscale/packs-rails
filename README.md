@@ -93,7 +93,7 @@ metadata:
 ```
 
 ### RSpec Integration
-It's highly recommended that you add `--require stimpack/rspec` to your `.rspec` file to keep things simply.
+Simply add `--require stimpack/rspec` to your `.rspec`.
 Or, if you'd like, pass it as an argument to `rspec`:
 
 ```
