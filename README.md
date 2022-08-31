@@ -100,6 +100,27 @@ Or, if you'd like, pass it as an argument to `rspec`:
 $ rspec --require stimpack/rspec ...
 ```
 
+Integration will allow you to run tests as such:
+```
+# Run all specs in your entire application (packs and all):
+rspec
+
+# Run just that one test:
+rspec spec/some/specific_spec.rb
+
+# Run all tests under the "foobar" pack and all the tests of its nested packs:
+rspec packs/foobar
+
+# Same as above but also adds the "binbaz" pack:
+rspec packs/foobar pack/binbaz
+
+# Run all test files inside the "packs/foobar/spec" directory:
+rspec packs/foobar/spec
+
+# Run all specs under the "packs/foobar/nested_pack" pack:
+rspec packs/foobar/nested_pack
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/Gusto/stimpack.
