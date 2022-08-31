@@ -1,6 +1,7 @@
 require "pathname"
 
 rails_dir = Pathname.new(File.expand_path("fixtures/rails-7.0", __dir__))
+Dir.chdir(rails_dir)
 require_relative rails_dir.join("config/environment")
 
 RSpec.describe Stimpack do

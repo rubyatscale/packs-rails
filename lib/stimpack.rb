@@ -1,4 +1,5 @@
 require "active_support"
+require "rails/application"
 
 module Stimpack
   extend ActiveSupport::Autoload
@@ -14,16 +15,8 @@ module Stimpack
   class << self
     attr_reader :config
 
-    def load(app)
-      Packs.resolve
-
-      Integrations::Rails.install(app)
-      Integrations::FactoryBot.install(app)
-      Integrations::RSpec.install(app)
-    end
-
-    def [](name)
-      Packs[name.to_s]
+    def root
+      @root ||= Rails::Application.find_root(Dir.pwd)
     end
   end
 
