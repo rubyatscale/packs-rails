@@ -29,5 +29,9 @@ RSpec.describe Stimpack do
         expect(Rails.application.paths[path].paths).to include(rails_dir.join(Stimpack.config.root, "pants", "shorts", path))
       end
     end
+
+    it "creates engines namespace for engine packs" do
+      expect(defined?(Shorts::Engine)).to eq("constant")
+    end
   end
 end
