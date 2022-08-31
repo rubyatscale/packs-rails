@@ -14,7 +14,7 @@ module Stimpack
 
     def initialize(path)
       @path = path
-      @name = path.basename
+      @name = path.basename.to_s
     end
 
     def relative_path
