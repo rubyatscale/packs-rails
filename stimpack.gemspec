@@ -20,11 +20,15 @@ Gem::Specification.new do |spec|
   spec.executables   = Dir["exe/*"].map { |exe| File.basename(exe) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails"
+  spec.add_dependency "railties"
+  spec.add_dependency "activesupport"
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "debug"
   spec.add_development_dependency "sorbet"
   spec.add_development_dependency "tapioca"
+
+  # We need this in test to load our test fixture Rails application, which represents the "client" of stimpack
+  spec.add_development_dependency "rails"
 end
