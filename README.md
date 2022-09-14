@@ -46,7 +46,7 @@ packs/
         my_domain/
           my_private_namespaced_model_factory.rb
   my_other_domain/
-    ... # other pack's have a similar structure
+    ... # other packs have a similar structure
   my_other_other_domain/
     ...
 ```
