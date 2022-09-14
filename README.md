@@ -129,7 +129,7 @@ rspec packs/foobar/nested_pack
 To make them work, you'll need to explicitly specify the spec paths:
 
 ```bash
-RAILS_ENV=test bundle exec parallel_test spec packs/**/spec <other_options> rspec
+RAILS_ENV=test bundle exec parallel_test spec packs/**/spec -t rspec <other_options>
 ```
 
 #### Knapsack (Pro)
