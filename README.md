@@ -92,6 +92,8 @@ metadata:
   engine: true
 ```
 
+## Ecosystem and Integrations
+
 ### RSpec Integration
 Simply add `--require stimpack/rspec` to your `.rspec`.
 Or, if you'd like, pass it as an argument to `rspec`:
@@ -120,6 +122,27 @@ rspec packs/foobar/spec
 # Run all specs under the "packs/foobar/nested_pack" pack:
 rspec packs/foobar/nested_pack
 ```
+
+#### parallel_tests
+
+`parallel_tests` has it its own spec discovery mechanism, so Stimpack's RSpec integration doesn't do anything when you use them together.
+To make them work, you'll need to explicitly specify the spec paths:
+
+```bash
+RAILS_ENV=test bundle exec parallel_test spec packs/**/spec <other_options> rspec
+```
+
+#### Knapsack (Pro)
+
+Similarly, Knapsack (and its Pro version) has its own spec discovery mechanism and the API will find and queue the relevant specs.
+To make it discover your pack tests as well, you'll need to configure the following variables:
+
+```yaml
+KNAPSACK_PRO_TEST_DIR: spec
+KNAPSACK_PRO_TEST_FILE_PATTERN: '{spec,packs}/**{,/*/**}/*_spec.rb'
+```
+
+Setting `KNAPSACK_PRO_TEST_FILE_PATTERN` will tell Knapsack where your specs are located, while setting `KNAPSACK_PRO_TEST_DIR` is necessary because otherwise an incorrect value is sent to rspec via the `--default-path` option.
 
 ## Contributing
 
