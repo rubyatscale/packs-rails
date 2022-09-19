@@ -84,8 +84,6 @@ draw(:my_domain)
 
 ### Making your Package an Engine
 Add `engine: true` to your `package.yml` to make it an actual Rails engine ([read more about what this means here](https://guides.rubyonrails.org/engines.html)):
-
-
 ```yml
 # packs/my_pack/package.yml
 enforce_dependencies: true
