@@ -34,4 +34,10 @@ RSpec.describe Stimpack do
       expect(defined?(Shorts::Engine)).to eq("constant")
     end
   end
+
+  context 'packs with automatic namespaces' do
+    it 'can find namespaced models without namespace dirs' do
+      expect(defined?(Jackets::Winter)).to eq("constant")
+    end
+  end
 end
