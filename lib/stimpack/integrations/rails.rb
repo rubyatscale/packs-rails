@@ -24,11 +24,15 @@ module Stimpack
 
       def inject_paths
         Packs.all.each do |pack|
-          module_name = pack.name.camelize
-          Object.const_set(module_name, Module.new) if pack.config.automatic_pack_namespace? #
           Stimpack.config.paths.each do |path|
-            @app.paths[path] << pack.path.join(path) unless pack.config.automatic_pack_namespace?
-            ::Rails.autoloaders.main.push_dir(pack.path.join(path), namespace: module_name.constantize) if pack.config.automatic_pack_namespace? && Dir.exist?(pack.path.join(path))
+            autoload_path = pack.path.join(path)
+            if pack.config.automatic_pack_namespace?
+              next unless Dir.exist?(autoload_path)
+              namespace = create_namespace(pack.name)
+              ::Rails.autoloaders.main.push_dir(autoload_path, namespace: namespace)
+            else
+              @app.paths[path] << autoload_path
+            end
           end
         end
       end
