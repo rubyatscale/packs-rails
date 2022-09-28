@@ -22,14 +22,14 @@ module Stimpack
 
       def inject_paths
         Packs.all.each do |pack|
-          Stimpack.config.paths.each do |path|
-            autoload_path = pack.path.join(path)
+          pack_source_directories(pack).each do |dir|
+            pack_source_path = pack.path.join(dir)
             if pack.config.automatic_pack_namespace?
-              next unless Dir.exist?(autoload_path)
-              namespace = create_namespace(pack.name)
-              ::Rails.autoloaders.main.push_dir(autoload_path, namespace: namespace)
+              next unless Dir.exist?(pack_source_path)
+              namespace = find_or_create_namespace(pack.name)
+              autoloader.push_dir(pack_source_path, namespace: namespace)
             else
-              @app.paths[path] << autoload_path
+              @app.paths[dir] << pack_source_path
             end
           end
         end
@@ -37,7 +37,17 @@ module Stimpack
 
       private
 
-      def create_namespace(name)
+      def autoloader
+        ::Rails.autoloaders.main
+      end
+
+      def pack_source_directories(pack)
+        pack.config.automatic_pack_namespace? ?
+          Stimpack.config.paths + ['app/public'] :
+          Stimpack.config.paths
+      end
+
+      def find_or_create_namespace(name)
         namespace = ActiveSupport::Inflector.camelize(name)
         namespace.split("::").reduce(Object) do |base, mod|
           if base.const_defined?(mod, false)
@@ -50,7 +60,7 @@ module Stimpack
 
       def create_engine(pack)
         name = pack.path.relative_path_from(Stimpack::Packs.root)
-        namespace = create_namespace(pack.name)
+        namespace = find_or_create_namespace(pack.name)
         stim = Stim.new(pack, namespace)
         namespace.const_set("Engine", Class.new(::Rails::Engine)).include(stim)
       end
