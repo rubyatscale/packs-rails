@@ -8,7 +8,6 @@ module Stimpack
     class Rails
       def initialize(app)
         @app = app
-        ::Rails.autoloaders.main.log!
         Stimpack.config.paths.freeze
         create_engines
         inject_paths
