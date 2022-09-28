@@ -138,6 +138,10 @@ products
 
 ```
 
+Note one shortcoming with this approach is that the root namespace module definition will not be reloadable with this option enabled for the pack. 
+That is, you will need to restart your running server to see changes to `Products` itself. So, when you add `Products.operation1`, you'll need to
+restart your server for it to be recognized. 
+
 ## Ecosystem and Integrations
 
 ### RSpec Integration
