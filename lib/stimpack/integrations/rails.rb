@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "active_support/inflections"
-require 'pry'
 
 module Stimpack
   module Integrations
