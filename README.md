@@ -92,6 +92,52 @@ metadata:
   engine: true
 ```
 
+### Making your package use a single namespace
+If you want to use a single namespace for all classes in your package, you can have Stimpack help by patching Zeitwerk so that the namespace subdirectories aren't necessary.
+Enable this feature like this
+```yml
+# packs/my_pack/package.yml
+enforce_dependencies: true
+enforce_privacy: true
+metadata:
+  automatic_pack_namespace: true
+```
+
+and turn this
+
+```
+products
+├── app
+│   ├── models
+│   │   └── products
+│   │       ├── package_record.rb              # Products::PackageRecord
+│   │       ├── product.rb                     # Products::Product
+│   │       └── sku.rb                         # Products::SKU
+│   ├── public
+│   │   ├── products
+│   │   │   ├── product_mediums.rb       # Products::ProductMediums
+│   │   │   └── products_operations.rb   # Products::ProductOperations
+│   │   └── products.rb
+│   └── services
+│       └── products
+```
+into this:
+
+```
+products
+├── app
+│   ├── models
+│   │  ├── package_record.rb         # Products::PackageRecord
+│   │  ├── product.rb                # Products::Product
+│   │  └── sku.rb                    # Products::SKU
+│   ├── public
+│   │   ├── product_mediums.rb       # Products::ProductMediums
+│   │   │── products_operations.rb   # Products::ProductOperations
+│   │   └── products.rb
+│   └── services
+
+```
+
 ## Ecosystem and Integrations
 
 ### RSpec Integration
