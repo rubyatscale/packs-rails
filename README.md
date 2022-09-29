@@ -138,9 +138,19 @@ products
 
 ```
 
-Note one shortcoming with this approach is that the root namespace module definition will not be reloadable with this option enabled for the pack. 
-That is, you will need to restart your running server to see changes to `Products` itself. So, when you add `Products.operation1`, you'll need to
-restart your server for it to be recognized. 
+Note one shortcoming with this approach is that the root namespace module definition can not be customized, for example,
+as the organizer of your public API. Thus, the (not uncommon) pattern of accessing `Products.public_operation1` defined
+like this:
+
+```
+# packs/products/public/product.rb
+module Products
+  def public_operation1
+  end
+end
+```
+
+is not supported.
 
 ## Ecosystem and Integrations
 
