@@ -1,5 +1,5 @@
 module Jackets
-  def test_operation
+  def self.test_operation
     "test result"
   end
 end

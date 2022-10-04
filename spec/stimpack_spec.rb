@@ -1,3 +1,5 @@
+# typed: ignore
+
 require "pathname"
 
 rails_dir = Pathname.new(File.expand_path("fixtures/rails-7.0", __dir__))
@@ -47,6 +49,12 @@ RSpec.describe Stimpack do
       #    b) we recognize this behavior is not working at this time
       #    c) we felt the overall feature has value apart from root namespace methods
       expect(Jackets.test_operation).to eq("test result")
+      expect(Jackets.other_test_operation).to eq("other test result")
+    end
+
+    # This should pass once we ensure that *both* paths are added to *and* we push a custom root dir
+    xit 'can access methods on the root namespace when defined using hacky pattern' do
+      expect(Jackets.other_test_operation).to eq("other test result")
     end
   end
 end
