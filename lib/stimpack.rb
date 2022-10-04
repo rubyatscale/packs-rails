@@ -9,6 +9,8 @@ module Stimpack
   autoload :Packs
   autoload :Railtie
   autoload :Stim
+  autoload :ZeitwerkProxy
+  autoload :Autoloaders
 
   class Error < StandardError; end
 
@@ -17,6 +19,11 @@ module Stimpack
 
     def root
       @root ||= Rails::Application.find_root(Dir.pwd)
+    end
+
+    def autoloader(original)
+      @autoloader_proxies ||= {}
+      @autoloader_proxies[original] ||= ZeitwerkProxy.new(original)
     end
   end
 

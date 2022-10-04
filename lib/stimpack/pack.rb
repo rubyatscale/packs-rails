@@ -24,5 +24,17 @@ module Stimpack
     def config
       @config ||= Configuration.new(path.join(PACKAGE_FILE))
     end
+
+    def find_or_create_namespace
+      name = self.name
+      namespace = ActiveSupport::Inflector.camelize(name)
+      namespace.split("::").reduce(Object) do |base, mod|
+        if base.const_defined?(mod, false)
+          base.const_get(mod, false)
+        else
+          base.const_set(mod, Module.new)
+        end
+      end
+    end
   end
 end

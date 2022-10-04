@@ -26,7 +26,7 @@ module Stimpack
             pack_source_path = pack.path.join(dir)
             if pack.config.automatic_pack_namespace?
               next unless Dir.exist?(pack_source_path)
-              namespace = find_or_create_namespace(pack.name)
+              namespace = pack.find_or_create_namespace
               autoloader.push_dir(pack_source_path, namespace: namespace)
             else
               @app.paths[dir] << pack_source_path
@@ -47,20 +47,9 @@ module Stimpack
           Stimpack.config.paths
       end
 
-      def find_or_create_namespace(name)
-        namespace = ActiveSupport::Inflector.camelize(name)
-        namespace.split("::").reduce(Object) do |base, mod|
-          if base.const_defined?(mod, false)
-            base.const_get(mod, false)
-          else
-            base.const_set(mod, Module.new)
-          end
-        end
-      end
-
       def create_engine(pack)
         name = pack.path.relative_path_from(Stimpack::Packs.root)
-        namespace = find_or_create_namespace(pack.name)
+        namespace = pack.find_or_create_namespace
         stim = Stim.new(pack, namespace)
         namespace.const_set("Engine", Class.new(::Rails::Engine)).include(stim)
       end
