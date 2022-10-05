@@ -93,7 +93,9 @@ metadata:
 ```
 
 ### Making your package use a single namespace
-`stimpack` supports a single namespace for all classes and modules in your pack.Enable this feature like this:
+`stimpack` supports a single namespace for all classes and modules in your pack.
+
+Enable this feature like this:
 ```yml
 # packs/my_pack/package.yml
 enforce_dependencies: true
