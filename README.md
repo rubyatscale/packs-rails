@@ -93,8 +93,7 @@ metadata:
 ```
 
 ### Making your package use a single namespace
-If you want to use a single namespace for all classes in your package, you can have Stimpack help by patching Zeitwerk so that the namespace subdirectories aren't necessary.
-Enable this feature like this
+`stimpack` supports a single namespace for all classes and modules in your pack.Enable this feature like this:
 ```yml
 # packs/my_pack/package.yml
 enforce_dependencies: true
@@ -107,50 +106,59 @@ and turn this
 
 ```
 products
-├── app
-│   ├── models
-│   │   └── products
-│   │       ├── package_record.rb              # Products::PackageRecord
-│   │       ├── product.rb                     # Products::Product
-│   │       └── sku.rb                         # Products::SKU
-│   ├── public
-│   │   ├── products
-│   │   │   ├── product_mediums.rb       # Products::ProductMediums
-│   │   │   └── products_operations.rb   # Products::ProductOperations
-│   │   └── products.rb
-│   └── services
-│       └── products
+└── app
+    ├── models
+    │   └── products
+    │       ├── package_record.rb              # Products::PackageRecord
+    │       ├── product.rb                     # Products::Product
+    │       └── sku.rb                         # Products::SKU
+    └── public
+        └── products
+            ├── product_mediums.rb       # Products::ProductMediums
+            └── products_operations.rb   # Products::ProductOperations
 ```
 into this:
 
 ```
 products
-├── app
-│   ├── models
-│   │  ├── package_record.rb         # Products::PackageRecord
-│   │  ├── product.rb                # Products::Product
-│   │  └── sku.rb                    # Products::SKU
-│   ├── public
-│   │   ├── product_mediums.rb       # Products::ProductMediums
-│   │   │── products_operations.rb   # Products::ProductOperations
-│   │   └── products.rb
-│   └── services
-
+└── app
+    ├── models
+    │  ├── package_record.rb         # Products::PackageRecord
+    │  ├── product.rb                # Products::Product
+    │  └── sku.rb                    # Products::SKU
+    └── public
+        ├── product_mediums.rb       # Products::ProductMediums
+        └── products_operations.rb   # Products::ProductOperations
 ```
 
-Note one shortcoming with this approach is that the root namespace module definition can not be customized, for example,
-as the organizer of your public API. Thus, the (not uncommon) pattern of accessing `Products.public_operation1` defined
+Note one shortcoming with this approach is that the root namespace module definition can not be customized *directly*, for example,
+as the organizer of your public API, due to constraints in the `zeitwerk` implementation. Thus, the (not uncommon) pattern of accessing `Products.public_operation1` defined
 like this:
 
 ```
-# packs/products/public/product.rb
+# packs/products/public/products.rb
 module Products
-  def public_operation1
+  def self.public_api
   end
 end
 ```
 
-is not supported.
+needs special consideration, as `zeitwerk` would expect this file to define `Products::Products`. To support this, consider this alternative:
+```
+# packs/products/public/api.rb
+module Products
+  def self.public_api
+  end
+
+  class Api; end
+end
+
+# packs/products/config/initializers/load_api.rb
+# Eagerly load the public API.
+Rails.application.config.to_prepare { Products::Api }
+```
+
+Now we can call `Products.public_api` throughout our application.
 
 ## Ecosystem and Integrations
 

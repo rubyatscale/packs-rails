@@ -43,17 +43,16 @@ RSpec.describe Stimpack do
       expect(defined?(Jackets::Summer)).to eq("constant")
     end
 
-    xit 'can access methods on the root namespace' do
+    xit 'can access methods on the root namespace defined in `jackets.rb`' do
       # left as a skipped test to reveal the intention that
       #    a) we want this behavior
       #    b) we recognize this behavior is not working at this time
-      #    c) we felt the overall feature has value apart from root namespace methods
+      #    c) we felt the overall feature has value despite this shortcoming
       expect(Jackets.test_operation).to eq("test result")
-      expect(Jackets.other_test_operation).to eq("other test result")
     end
 
     # This should pass once we ensure that *both* paths are added to *and* we push a custom root dir
-    xit 'can access methods on the root namespace when defined using hacky pattern' do
+    it 'can access methods on the root namespace when defined using hacky pattern' do
       expect(Jackets.other_test_operation).to eq("other test result")
     end
   end
