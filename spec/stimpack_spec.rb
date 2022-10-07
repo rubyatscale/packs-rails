@@ -55,5 +55,11 @@ RSpec.describe Stimpack do
     it 'can access methods on the root namespace when defined using hacky pattern' do
       expect(Jackets.other_test_operation).to eq("other test result")
     end
+
+    context 'pack is nested' do
+      it 'can find namespaced models without namespace dirs' do
+        expect(defined?(Coats::Parkas)).to eq("constant")
+      end
+    end
   end
 end

@@ -15,7 +15,7 @@ module Stimpack
     private
 
     def _resolve_namespace(absolute_path)
-      pack = Packs.all.find do |pack|
+      pack = Packs.all.sort_by{|p| p.name.length}.find do |pack|
         absolute_path.starts_with?(pack.path.to_s)
       end
       return unless pack
