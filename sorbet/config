@@ -1,3 +1,4 @@
 --dir
 .
 --ignore=/spec/fixtures
+--ignore=/vendor/bundle

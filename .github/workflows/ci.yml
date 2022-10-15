@@ -1,9 +1,9 @@
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  build:
+  rspec:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,28 +16,25 @@ jobs:
           - head
     env:
       BUNDLE_GEMFILE: Gemfile
-    name: "Tests: Ruby ${{ matrix.ruby }}"
+    name: "RSpec tests: Ruby ${{ matrix.ruby }}"
     steps:
-      - uses: actions/checkout@5126516654c75f76bca1de45dd82a3006d8890f9
+      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@bd94d6a504586da892a5753afdd1480096ed30df
+        uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
         with:
+          bundler-cache: true
           ruby-version: ${{ matrix.ruby }}
       - name: Run tests
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          bundle exec rspec
-  static-type-checking:
+        run: bundle exec rspec
+  static_type_check:
+    name: "Type Check"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@5126516654c75f76bca1de45dd82a3006d8890f9
+      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
       - name: Set up Ruby
-        uses: ruby/setup-ruby@bd94d6a504586da892a5753afdd1480096ed30df
+        uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
         with:
+          bundler-cache: true
           ruby-version: head
       - name: Run static type checks
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          bundle exec srb tc
+        run: bundle exec srb tc
