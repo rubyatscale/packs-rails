@@ -92,6 +92,66 @@ metadata:
   engine: true
 ```
 
+### Making your package use a single namespace
+If you want to use a single namespace for all classes in your package, you can have Stimpack help by patching Zeitwerk so that the namespace subdirectories aren't necessary.
+Enable this feature like this
+```yml
+# packs/my_pack/package.yml
+enforce_dependencies: true
+enforce_privacy: true
+metadata:
+  automatic_pack_namespace: true
+```
+
+and turn this
+
+```
+products
+├── app
+│   ├── models
+│   │   └── products
+│   │       ├── package_record.rb              # Products::PackageRecord
+│   │       ├── product.rb                     # Products::Product
+│   │       └── sku.rb                         # Products::SKU
+│   ├── public
+│   │   ├── products
+│   │   │   ├── product_mediums.rb       # Products::ProductMediums
+│   │   │   └── products_operations.rb   # Products::ProductOperations
+│   │   └── products.rb
+│   └── services
+│       └── products
+```
+into this:
+
+```
+products
+├── app
+│   ├── models
+│   │  ├── package_record.rb         # Products::PackageRecord
+│   │  ├── product.rb                # Products::Product
+│   │  └── sku.rb                    # Products::SKU
+│   ├── public
+│   │   ├── product_mediums.rb       # Products::ProductMediums
+│   │   │── products_operations.rb   # Products::ProductOperations
+│   │   └── products.rb
+│   └── services
+
+```
+
+Note one shortcoming with this approach is that the root namespace module definition can not be customized, for example,
+as the organizer of your public API. Thus, the (not uncommon) pattern of accessing `Products.public_operation1` defined
+like this:
+
+```
+# packs/products/public/product.rb
+module Products
+  def public_operation1
+  end
+end
+```
+
+is not supported.
+
 ## Ecosystem and Integrations
 
 ### RSpec Integration

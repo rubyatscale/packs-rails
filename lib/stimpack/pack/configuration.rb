@@ -16,6 +16,11 @@ module Stimpack
       end
       alias_method :engine?, :engine
 
+      def automatic_pack_namespace
+        data.fetch("automatic_pack_namespace", false)
+      end
+      alias_method :automatic_pack_namespace?, :automatic_pack_namespace
+
       private
 
       def data

@@ -34,4 +34,19 @@ RSpec.describe Stimpack do
       expect(defined?(Shorts::Engine)).to eq("constant")
     end
   end
+
+  context 'packs with automatic namespaces' do
+    it 'can find namespaced models without namespace dirs' do
+      expect(defined?(Jackets::Winter)).to eq("constant")
+      expect(defined?(Jackets::Summer)).to eq("constant")
+    end
+
+    xit 'can access methods on the root namespace' do
+      # left as a skipped test to reveal the intention that
+      #    a) we want this behavior
+      #    b) we recognize this behavior is not working at this time
+      #    c) we felt the overall feature has value apart from root namespace methods
+      expect(Jackets.test_operation).to eq("test result")
+    end
+  end
 end
