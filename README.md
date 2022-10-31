@@ -94,6 +94,17 @@ metadata:
 
 ## Ecosystem and Integrations
 
+### Spring application preloader
+
+For Spring to pick up new packs, add a watch on the packs folder:
+
+```ruby
+# config/spring.rb
+
+# Keep in sync with `Stimpack.config.root`
+Spring.watch("packs")
+```
+
 ### RSpec Integration
 Simply add `--require stimpack/rspec` to your `.rspec`.
 Or, if you'd like, pass it as an argument to `rspec`:
