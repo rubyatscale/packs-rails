@@ -14,9 +14,10 @@ module Stimpack
       def find(path)
         @find_pack_paths ||= all_by_path.keys.sort_by(&:length).reverse!.map { |path| "#{path}/" }
         path = "#{path}/"
-        @find_pack_paths.find do |pack_path|
+        matched_path = @find_pack_paths.find do |pack_path|
           path.start_with?(pack_path)
         end
+        all_by_path.fetch(matched_path.chomp("/")) if matched_path
       end
 
       def all(parent = nil)
