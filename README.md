@@ -63,6 +63,8 @@ If you wish to use a different directory name, eg `components` instead of `packs
 # Customize Stimpack's root directory. Note that this has to be done _before_ the Application
 # class is declared.
 Stimpack.config.root = "components"
+# You can also set multiple roots:
+Stimpack.config.root = ["packs", "utilities", "components"]
 
 module MyCoolApp
   class Application < Rails::Application

@@ -11,7 +11,7 @@ RSpec.describe Stimpack do
 
   it "adds pack paths to the application" do
     Stimpack.config.paths.each do |path|
-      expect(Rails.application.paths[path].paths).to include(rails_dir.join(Stimpack.config.root, "shirts", path))
+      expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "shirts", path))
     end
   end
 
@@ -26,12 +26,24 @@ RSpec.describe Stimpack do
 
     it "adds pack paths to the application" do
       Stimpack.config.paths.each do |path|
-        expect(Rails.application.paths[path].paths).to include(rails_dir.join(Stimpack.config.root, "pants", "shorts", path))
+        expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "pants", "shorts", path))
       end
     end
 
     it "creates engines namespace for engine packs" do
       expect(defined?(Shorts::Engine)).to eq("constant")
+    end
+  end
+
+  context 'alternate roots' do
+    it "autoloads classes in autoload paths" do
+      expect(defined?(Belts::Brown)).to eq("constant")
+    end
+
+    it "adds pack paths to the application" do
+      Stimpack.config.paths.each do |path|
+        expect(Rails.application.paths[path].paths).to include(rails_dir.join('utilities', "belts", path))
+      end
     end
   end
 end

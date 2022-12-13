@@ -1,3 +1,5 @@
+# typed: true
+
 module Stimpack
   module Integrations
     class FactoryBot

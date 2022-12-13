@@ -1,5 +1,10 @@
+# typed: true
+
 module Stimpack
   class Stim < Module
+    extend T::Sig
+
+    sig { params(pack: Packs::Pack, namespace: Module).void }
     def initialize(pack, namespace)
       @pack = pack
       @namespace = namespace
@@ -7,7 +12,7 @@ module Stimpack
     end
 
     def included(engine)
-      engine.called_from = @pack.path
+      engine.called_from = @pack.relative_path
       engine.extend(ClassMethods)
       engine.isolate_namespace(@namespace)
 
@@ -28,7 +33,7 @@ module Stimpack
 
     module ClassMethods
       def find_root(_from)
-        called_from
+        T.unsafe(self).called_from
       end
     end
   end

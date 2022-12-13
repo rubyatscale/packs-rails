@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 require "active_support/inflections"
 
@@ -14,17 +15,20 @@ module Stimpack
       end
 
       def create_engines
-        Packs.all.each do |pack|
-          next unless pack.config.engine?
+        # Ideally, the user just does `Packs.configure { |config| config.roots = '...' }`
+        Packs.configure { |config| config.roots = Array(Stimpack.config.root) }
 
-          pack.engine = create_engine(pack)
+        Packs.all.each do |pack|
+          next unless pack.metadata['engine']
+
+          create_engine(pack)
         end
       end
 
       def inject_paths
         Packs.all.each do |pack|
           Stimpack.config.paths.each do |path|
-            @app.paths[path] << pack.path.join(path)
+            @app.paths[path] << pack.relative_path.join(path)
           end
         end
       end
@@ -43,8 +47,8 @@ module Stimpack
       end
 
       def create_engine(pack)
-        name = pack.path.relative_path_from(Stimpack::Packs.root)
-        namespace = create_namespace(pack.name)
+        name = pack.last_name
+        namespace = create_namespace(name)
         stim = Stim.new(pack, namespace)
         namespace.const_set("Engine", Class.new(::Rails::Engine)).include(stim)
       end
