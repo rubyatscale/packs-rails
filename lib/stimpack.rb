@@ -1,12 +1,12 @@
+require 'packs'
 require "active_support"
 require "rails/application"
+require 'sorbet-runtime'
 
 module Stimpack
   extend ActiveSupport::Autoload
 
   autoload :Integrations
-  autoload :Pack
-  autoload :Packs
   autoload :Railtie
   autoload :Stim
 
@@ -21,7 +21,8 @@ module Stimpack
   end
 
   @config = ActiveSupport::OrderedOptions.new
-  @config.root = "packs".freeze
+  # Should this allow a plural version to be set? What are semantics of that?
+  @config.root = Array("packs".freeze)
   @config.paths = %w(
     app
     app/controllers
