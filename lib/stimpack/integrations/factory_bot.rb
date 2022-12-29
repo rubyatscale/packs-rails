@@ -8,6 +8,7 @@ module Stimpack
         Stimpack.configure_packs
 
         Packs.all.each do |pack|
+          next if pack.relative_path.glob('*.gemspec').any?
           app.config.factory_bot.definition_file_paths << pack.relative_path.join("spec/factories").to_s
         end
       end
