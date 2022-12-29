@@ -18,6 +18,23 @@ module Stimpack
     def root
       @root ||= Rails::Application.find_root(Dir.pwd)
     end
+
+    #
+    # This is temporary. For now, we allow Stimpack roots to be configured via Stimpack.config.root
+    # Later, if clients configure packs directly, we can deprecate the Stimpack setting and
+    # remove this function and its invocations.
+    #
+    def configure_packs
+      Packs.configure do |config|
+        roots = Array(Stimpack.config.root)
+        pack_paths = roots.flat_map do |root|
+          # Support nested packs by default. Later, this can be pushed to a client configuration.
+          ["#{root}/*", "#{root}/*/*"]
+        end
+
+        config.pack_paths = pack_paths
+      end
+    end
   end
 
   @config = ActiveSupport::OrderedOptions.new

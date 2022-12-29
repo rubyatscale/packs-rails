@@ -10,15 +10,13 @@ module Stimpack
         @app = app
 
         Stimpack.config.paths.freeze
+        Stimpack.configure_packs
+
         create_engines
         inject_paths
       end
 
       def create_engines
-        # Ideally, the user just does `Packs.configure { |config| config.roots = '...' }`
-        # But that would be a public API change and can come later
-        Packs.configure { |config| config.roots = Array(Stimpack.config.root) }
-
         Packs.all.each do |pack|
           next unless pack.metadata['engine']
 

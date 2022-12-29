@@ -10,11 +10,12 @@ module Stimpack
         to_run = ::RSpec.configuration.instance_variable_get(:@files_or_directories_to_run)
         default_path = ::RSpec.configuration.default_path
 
+        Stimpack.configure_packs
+
         if to_run == [default_path]
           # This is the default case when you run `rspec`. We want to add all the pack's spec paths
           # to the collection of directories to run.
 
-          Packs.configure { |config| config.roots = Array(Stimpack.config.root) }
           pack_paths = Packs.all.map do |pack|
             spec_path = pack.relative_path.join(default_path)
             spec_path.to_s if spec_path.exist?

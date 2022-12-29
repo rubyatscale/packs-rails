@@ -12,10 +12,10 @@ module Packs
     sig { void }
     def bust_cache!; end
 
-    sig { returns(::Packs::Configuration) }
+    sig { returns(::Packs::Private::Configuration) }
     def config; end
 
-    sig { params(blk: T.proc.params(arg0: ::Packs::Configuration).void).void }
+    sig { params(blk: T.proc.params(arg0: ::Packs::Private::Configuration).void).void }
     def configure(&blk); end
 
     sig { params(name: ::String).returns(T.nilable(::Packs::Pack)) }
@@ -32,17 +32,6 @@ module Packs
     sig { returns(T::Hash[::String, ::Packs::Pack]) }
     def packs_by_name; end
   end
-end
-
-class Packs::Configuration
-  sig { void }
-  def initialize; end
-
-  sig { returns(T::Array[::Pathname]) }
-  def roots; end
-
-  sig { params(roots: T::Array[::String]).void }
-  def roots=(roots); end
 end
 
 Packs::PACKAGE_FILE = T.let(T.unsafe(nil), String)
@@ -77,4 +66,19 @@ module Packs::Private
   end
 end
 
-Packs::ROOTS = T.let(T.unsafe(nil), Array)
+class Packs::Private::Configuration < ::T::Struct
+  prop :pack_paths, T::Array[::String]
+
+  class << self
+    sig { returns(::Packs::Private::Configuration) }
+    def fetch; end
+
+    def inherited(s); end
+
+    sig { params(config_hash: T::Hash[T.untyped, T.untyped]).returns(T::Array[::String]) }
+    def pack_paths(config_hash); end
+  end
+end
+
+Packs::Private::Configuration::CONFIGURATION_PATHNAME = T.let(T.unsafe(nil), Pathname)
+Packs::Private::Configuration::DEFAULT_PACK_PATHS = T.let(T.unsafe(nil), Array)
