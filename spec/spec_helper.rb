@@ -12,3 +12,10 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+def require_test_rails_application
+  rails_dir = Pathname.new(File.expand_path("fixtures/rails-7.0", __dir__))
+  Dir.chdir(rails_dir)
+  require_relative rails_dir.join("config/environment")
+  rails_dir
+end
