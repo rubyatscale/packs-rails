@@ -42,6 +42,9 @@ class Packs::Pack < ::T::Struct
   const :raw_hash, T::Hash[T.untyped, T.untyped]
   const :relative_path, ::Pathname
 
+  sig { returns(T::Boolean) }
+  def is_gem?; end
+
   sig { returns(::String) }
   def last_name; end
 

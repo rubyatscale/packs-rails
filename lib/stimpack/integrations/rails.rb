@@ -17,7 +17,7 @@ module Stimpack
       end
 
       def create_engines
-        Packs.all.each do |pack|
+        Packs.all.reject(&:is_gem?).each do |pack|
           next unless pack.metadata['engine']
 
           create_engine(pack)
@@ -25,7 +25,7 @@ module Stimpack
       end
 
       def inject_paths
-        Packs.all.each do |pack|
+        Packs.all.reject(&:is_gem?).each do |pack|
           Stimpack.config.paths.each do |path|
             @app.paths[path] << pack.relative_path.join(path)
           end

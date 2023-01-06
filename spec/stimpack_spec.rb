@@ -1,8 +1,6 @@
 require "pathname"
 
-rails_dir = Pathname.new(File.expand_path("fixtures/rails-7.0", __dir__))
-Dir.chdir(rails_dir)
-require_relative rails_dir.join("config/environment")
+rails_dir = require_test_rails_application
 
 RSpec.describe Stimpack do
   it "autoloads classes in autoload paths" do
@@ -12,6 +10,12 @@ RSpec.describe Stimpack do
   it "adds pack paths to the application" do
     Stimpack.config.paths.each do |path|
       expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "shirts", path))
+    end
+  end
+
+  it "does not add gem paths to the application" do
+    Stimpack.config.paths.each do |path|
+      expect(Rails.application.paths[path].paths).to_not include(rails_dir.join('components', "jackets", path))
     end
   end
 
