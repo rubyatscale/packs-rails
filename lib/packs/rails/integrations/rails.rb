@@ -11,7 +11,6 @@ module Packs
           @app = app
 
           Packs::Rails.config.paths.freeze
-          Packs::Rails.configure_packs
 
           create_engines
           inject_paths

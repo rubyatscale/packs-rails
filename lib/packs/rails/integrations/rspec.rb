@@ -11,8 +11,6 @@ module Packs
           to_run = ::RSpec.configuration.instance_variable_get(:@files_or_directories_to_run)
           default_path = ::RSpec.configuration.default_path
 
-          Packs::Rails.configure_packs
-
           if to_run == [default_path]
             # This is the default case when you run `rspec`. We want to add all the pack's spec paths
             # to the collection of directories to run.
