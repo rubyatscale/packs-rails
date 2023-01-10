@@ -1,5 +1,5 @@
 module Packs
   module Rails
-    VERSION = "0.8.3".freeze
+    VERSION = "0.0.1".freeze
   end
 end
