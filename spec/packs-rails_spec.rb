@@ -2,19 +2,19 @@ require "pathname"
 
 rails_dir = require_test_rails_application
 
-RSpec.describe Stimpack do
+RSpec.describe Packs::Rails do
   it "autoloads classes in autoload paths" do
     expect(defined?(Shirts::ShortSleeve)).to eq("constant")
   end
 
   it "adds pack paths to the application" do
-    Stimpack.config.paths.each do |path|
+    Packs::Rails.config.paths.each do |path|
       expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "shirts", path))
     end
   end
 
   it "does not add gem paths to the application" do
-    Stimpack.config.paths.each do |path|
+    Packs::Rails.config.paths.each do |path|
       expect(Rails.application.paths[path].paths).to_not include(rails_dir.join('components', "jackets", path))
     end
   end
@@ -29,7 +29,7 @@ RSpec.describe Stimpack do
     end
 
     it "adds pack paths to the application" do
-      Stimpack.config.paths.each do |path|
+      Packs::Rails.config.paths.each do |path|
         expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "pants", "shorts", path))
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Stimpack do
     end
 
     it "adds pack paths to the application" do
-      Stimpack.config.paths.each do |path|
+      Packs::Rails.config.paths.each do |path|
         expect(Rails.application.paths[path].paths).to include(rails_dir.join('utilities', "belts", path))
       end
     end

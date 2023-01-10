@@ -1,3 +1,3 @@
-require "stimpack"
+require "packs-rails"
 
-Stimpack::Integrations::RSpec.new
+Packs::Rails::Integrations::RSpec.new
