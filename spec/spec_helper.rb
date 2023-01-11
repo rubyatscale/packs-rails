@@ -1,5 +1,6 @@
 require "bundler/setup"
-require "stimpack"
+require "packs-rails"
+require 'packs/rspec/support'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

@@ -1,19 +1,19 @@
-require_relative "lib/stimpack/version"
+require_relative "lib/packs/rails/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "stimpack"
-  spec.version       = Stimpack::VERSION
+  spec.name          = "packs-rails"
+  spec.version       = Packs::Rails::VERSION
   spec.authors       = ["Ngan Pham"]
   spec.email         = ["gusto-opensource-buildkite@gusto.com"]
 
   spec.summary       = "A Rails helper to package your code."
-  spec.description   = "stimpack establishes and implements a set of conventions for splitting up large monoliths."
-  spec.homepage      = "https://github.com/Gusto/stimpack"
+  spec.description   = "packs-rails establishes and implements a set of conventions for splitting up large monoliths."
+  spec.homepage      = "https://github.com/Gusto/packs-rails"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7")
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/Gusto/stimpack"
-  spec.metadata["changelog_uri"] = "https://github.com/Gusto/stimpack/blob/master/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/Gusto/packs-rails"
+  spec.metadata["changelog_uri"] = "https://github.com/Gusto/packs-rails/blob/main/CHANGELOG.md"
 
   spec.files         = Dir["VERSION", "CHANGELOG.md", "LICENSE.txt", "README.md", "lib/**/*", "bin/**/*"]
   spec.bindir        = "exe"
@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sorbet"
   spec.add_development_dependency "tapioca"
 
-  # We need this in test to load our test fixture Rails application, which represents the "client" of stimpack
+  # We need this in test to load our test fixture Rails application, which represents the "client" of packs-rails
   spec.add_development_dependency "rails"
 end
