@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "A Rails helper to package your code."
   spec.description   = "packs-rails establishes and implements a set of conventions for splitting up large monoliths."
   spec.homepage      = "https://github.com/Gusto/packs-rails"
+  spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7")
 
   spec.metadata["homepage_uri"] = spec.homepage
