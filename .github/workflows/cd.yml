@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
       - name: Tag and Push Gem
         id: tag-and-push-gem
-        uses: discourse/publish-rubygems-action@a3753e0ecc0c9f53b87c993ac854de93b39c4b53
+        uses: discourse/publish-rubygems-action@04549cca4eecd343acd215114ebbbdb99630af90
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GIT_EMAIL: ${{secrets.ALEX_GIT_EMAIL}}
