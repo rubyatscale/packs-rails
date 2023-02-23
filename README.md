@@ -23,7 +23,7 @@ packs/
       models/ # Private models
         some_other_non_namespaced_private_model.rb # this works too
         my_domain/
-          my_private_namespacd_model.rb
+          my_private_namespaced_model.rb
       controllers/
       views/
     config/
