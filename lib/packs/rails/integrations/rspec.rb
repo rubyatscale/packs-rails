@@ -16,6 +16,7 @@ module Packs
             # to the collection of directories to run.
 
             pack_paths = Packs.all.map do |pack|
+              next if pack.is_gem?
               spec_path = pack.relative_path.join(default_path)
               spec_path.to_s if spec_path.exist?
             end
