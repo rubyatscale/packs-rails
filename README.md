@@ -53,7 +53,7 @@ packs/
 
 ## Usage
 
-Setting up `packs-rails` is straightforward. Simply by including `packs-rails` in your `Gemfile` in all environments, `packs-rails` will automatically hook into and configure Rails.
+Setting up `packs-rails` is straightforward. Simply by including `packs-rails` in your `Gemfile` in **all environments**, `packs-rails` will automatically hook into and configure Rails.
 
 From there, you can create a `./packs` folder and structure it using the conventions listed above.
 
