@@ -46,7 +46,7 @@ module Packs
         end
 
         def create_engine(pack)
-          name = pack.last_name
+          name = pack.metadata.fetch("engine_name", pack.last_name)
           namespace = create_namespace(name)
           stim = Stim.new(pack, namespace)
           namespace.const_set("Engine", Class.new(::Rails::Engine)).include(stim)
