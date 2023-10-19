@@ -27,6 +27,10 @@ module Packs
         def inject_paths
           Packs.all.reject(&:is_gem?).each do |pack|
             Packs::Rails.config.paths.each do |path|
+              # Example case: in rails 6.0, the "config/routes" app path is nil and was not added until
+              # https://github.com/rails/rails/pull/37892/files#diff-a785e41df3f87063a8fcffcac726856a25d8eae6d1f9bca2b36989fe88613f8eR62
+              next unless @app.paths[path]
+
               @app.paths[path] << pack.relative_path.join(path)
             end
           end
