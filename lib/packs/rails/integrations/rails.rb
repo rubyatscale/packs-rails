@@ -7,6 +7,8 @@ module Packs
   module Rails
     module Integrations
       class Rails
+        CONFIG_ROUTES_PATH =  "config/routes".freeze
+
         def initialize(app)
           @app = app
 
@@ -27,9 +29,9 @@ module Packs
         def inject_paths
           Packs.all.reject(&:is_gem?).each do |pack|
             Packs::Rails.config.paths.each do |path|
-              # Example case: in rails 6.0, the "config/routes" app path is nil and was not added until
+              # Prior to Rails 6.1, the "config/routes" app path is nil and was not added until drawable routes feature was implemented
               # https://github.com/rails/rails/pull/37892/files#diff-a785e41df3f87063a8fcffcac726856a25d8eae6d1f9bca2b36989fe88613f8eR62
-              next unless @app.paths[path]
+              next if path == CONFIG_ROUTES_PATH && Gem::Version.new(::Rails.version) < Gem::Version.new("6.1")
 
               @app.paths[path] << pack.relative_path.join(path)
             end
