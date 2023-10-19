@@ -60,14 +60,18 @@ From there, you can create a `./packs` folder and structure it using the convent
 If you wish to use a different directory name, eg `components` instead of `packs`, you can customize this by configuring `packs.yml`. See [`packs`](https://github.com/rubyatscale/packs) for more information.
 
 ### Splitting routes
-`packs-rails` allows you to split your application routes for every pack. You just have to create a file describing your routes and then `draw` them in your root `config/routes.rb` file.
+`packs-rails` allows you to split your application routes for every pack. You just have to create a file describing your routes and then `draw` them in your root `config/routes.rb` file (NOTE: the `draw` function is only in Rails 6.1+).
 
 ```ruby
 # packs/my_domain/config/routes/my_domain.rb
-resources :my_resource
+Rails.application.routes.draw do
+  resources :my_resource
+end
 
 # config/routes.rb
-draw(:my_domain)
+Rails.application.routes.draw do
+  draw(:my_domain)
+end
 ```
 
 ### Making your Package an Engine
