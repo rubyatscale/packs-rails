@@ -31,7 +31,7 @@ module Packs
             Packs::Rails.config.paths.each do |path|
               # Prior to Rails 6.1, the "config/routes" app path is nil and was not added until drawable routes feature was implemented
               # https://github.com/rails/rails/pull/37892/files#diff-a785e41df3f87063a8fcffcac726856a25d8eae6d1f9bca2b36989fe88613f8eR62
-              next if path == CONFIG_ROUTES_PATH && ::Rails.gem_version < Gem::Version.new("6.1")
+              next if pre_rails_6_1? && path == CONFIG_ROUTES_PATH
 
               @app.paths[path] << pack.relative_path.join(path)
             end
@@ -39,6 +39,11 @@ module Packs
         end
 
         private
+
+        def pre_rails_6_1?
+          return @_pre_rails_6_1 if defined?(@_pre_rails_6_1)
+          @_pre_rails_6_1 = ::Rails.gem_version < Gem::Version.new("6.1")
+        end
 
         def create_namespace(name)
           namespace = ActiveSupport::Inflector.camelize(name)
