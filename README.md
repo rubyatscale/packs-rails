@@ -80,6 +80,18 @@ metadata:
   engine: true
 ```
 
+Add `engine_name: ` to your `package.yml` to use a specific, maybe namespaced, engine name instead of the last package folder name.
+```yml
+# packs/my_pack/package.yml
+enforce_dependencies: true
+enforce_privacy: true
+metadata:
+  engine: true
+  engine_name: namespaced/my_pack
+```
+
+The engine is created as `Namespaced::MyPack::Engine` instead of `MyPack::Engine`.
+
 ## Ecosystem and Integrations
 
 ### RSpec Integration
