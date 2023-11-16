@@ -64,9 +64,7 @@ If you wish to use a different directory name, eg `components` instead of `packs
 
 ```ruby
 # packs/my_domain/config/routes/my_domain.rb
-Rails.application.routes.draw do
-  resources :my_resource
-end
+resources :my_resource
 
 # config/routes.rb
 Rails.application.routes.draw do
