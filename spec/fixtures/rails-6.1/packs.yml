@@ -1,0 +1,3 @@
+pack_paths:
+  - "{packs,utilities}/*" # parent packs!
+  - "{packs,utilities}/*/*" # nested packs!
