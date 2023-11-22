@@ -1,6 +1,6 @@
 require "pathname"
 
-rails_dir = require_test_rails_application(ENV.fetch("RAILS_VERSION", "7.0"))
+rails_dir = require_test_rails_application
 
 RSpec.describe Packs::Rails do
   it "autoloads classes in autoload paths" do
