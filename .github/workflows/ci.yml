@@ -14,9 +14,13 @@ jobs:
           - '3.0'
           - 3.1
           - head
+        rails:
+          - "7.0"
+          - 6.1
     env:
       BUNDLE_GEMFILE: Gemfile
-    name: "RSpec tests: Ruby ${{ matrix.ruby }}"
+      RAILS_VERSION: ${{ matrix.rails }}
+    name: "RSpec tests: Ruby ${{ matrix.ruby }}; Rails ${{ matrix.rails }}"
     steps:
       - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
       - name: Set up Ruby ${{ matrix.ruby }}

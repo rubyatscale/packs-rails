@@ -14,8 +14,8 @@ RSpec.configure do |config|
   end
 end
 
-def require_test_rails_application
-  rails_dir = Pathname.new(File.expand_path("fixtures/rails-7.0", __dir__))
+def require_test_rails_application(version = ENV.fetch("RAILS_VERSION", "7.0"))
+  rails_dir = Pathname.new(File.expand_path("fixtures/rails-#{version}", __dir__))
   Dir.chdir(rails_dir)
   require_relative rails_dir.join("config/environment")
   rails_dir
