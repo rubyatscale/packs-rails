@@ -9,6 +9,7 @@ module Packs
 
           Packs.all.reject(&:is_gem?).each do |pack|
             app.config.factory_bot.definition_file_paths << pack.relative_path.join("spec/factories").to_s
+            app.config.factory_bot.definition_file_paths << pack.relative_path.join("test/factories").to_s
           end
         end
       end
