@@ -11,7 +11,7 @@ module Packs
         ActiveSupport.run_load_hooks(:packs_rails, Packs)
       end
       
-      config.after_initialize do |app|
+      config.before_initialize do |app|
         Integrations::FactoryBot.new(app)
       end
     end
