@@ -1,7 +1,7 @@
 # typed: false
 
 FactoryBot.define do
-  factory :foo do
-    name { "MyBar" }
+  factory :bar do
+    name { "baz" }
   end
 end
