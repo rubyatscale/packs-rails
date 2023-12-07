@@ -42,7 +42,7 @@ packs/
         some_other_non_namespaced_private_model_spec.rb
         my_domain/
           my_private_namespaced_model_spec.rb
-      factories/ # packs-rails will automatically load pack factories into FactoryBot
+      factories/ # packs-rails will automatically load pack factories into FactoryBot, see Ecosystem and Integrations#factory_bot below
         my_domain/
           my_private_namespaced_model_factory.rb
   my_other_domain/
@@ -123,6 +123,31 @@ rspec packs/foobar/spec
 
 # Run all specs under the "packs/foobar/nested_pack" pack:
 rspec packs/foobar/nested_pack
+```
+
+#### factory_bot and factory_bot_rails
+
+Ensure you have the gem in your Gemfile, and that `require: false` is not present, otherwise the `packs-rails` FactoryBot integration will not be run upon application/environment load.
+This integration will automatically add the `[spec|test]/factories` directory from each pack to the application's `config.factory_bot.definition_file_paths`.
+
+Using the example application above:
+```
+...
+packs/
+  my_domain/
+    ...
+    spec/ # OR test/
+      ...
+      factories/
+        my_domain/
+          my_private_namespaced_model_factory.rb
+  my_other_domain/
+    ...
+    spec/ # OR test/
+      ...
+      factories/
+        my_other_domain/
+          my_private_namespaced_model_factory.rb
 ```
 
 #### parallel_tests
