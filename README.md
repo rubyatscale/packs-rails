@@ -11,7 +11,7 @@ app/ # Unpackaged code
 packs/
   my_domain/
     package.yml # See the packwerk docs for more info
-    deprecated_references.yml # See the packwerk docs for more info
+    package_todo.yml # See the packwerk docs for more info
     app/
       public/ # Recommended location for public API
         my_domain.rb # creates the primary namespaces
