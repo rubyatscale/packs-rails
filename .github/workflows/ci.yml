@@ -13,6 +13,8 @@ jobs:
           # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
           - '3.0'
           - 3.1
+          - 3.2
+          - 3.3
           - head
         rails:
           - "7.0"
@@ -22,9 +24,9 @@ jobs:
       RAILS_VERSION: ${{ matrix.rails }}
     name: "RSpec tests: Ruby ${{ matrix.ruby }}; Rails ${{ matrix.rails }}"
     steps:
-      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
+      - uses: actions/checkout@v4
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
           ruby-version: ${{ matrix.ruby }}
@@ -34,9 +36,9 @@ jobs:
     name: "Type Check"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
+      - uses: actions/checkout@v4
       - name: Set up Ruby
-        uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
           ruby-version: head

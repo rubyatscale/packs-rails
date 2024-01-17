@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
+      - uses: actions/checkout@v3
       - name: Tag and Push Gem
         id: tag-and-push-gem
-        uses: discourse/publish-rubygems-action@04549cca4eecd343acd215114ebbbdb99630af90
+        uses: discourse/publish-rubygems-action@v2
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          GIT_EMAIL: ${{secrets.ALEX_GIT_EMAIL}}
-          GIT_NAME: ${{secrets.ALEX_GIT_NAME}}
+          GIT_EMAIL: ${{secrets.GUSTO_GIT_EMAIL}}
+          GIT_NAME: ${{secrets.GUSTO_GIT_NAME}}
           RUBYGEMS_API_KEY: ${{secrets.RUBYGEMS_API_KEY}}
       - name: Create GitHub Release
         run: gh release create v${{steps.tag-and-push-gem.outputs.gem_version}} --generate-notes
