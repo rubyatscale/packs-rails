@@ -27,10 +27,10 @@ jobs:
       - name: Set up Ruby ${{ matrix.ruby }}
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          bundler-cache: false 
           ruby-version: ${{ matrix.ruby }}
       - name: Update bundler
-        run: bundle update --bundler
+        run: bundle update --bundler && bundle install
       - name: Run tests
         run: bundle exec rspec
   static_type_check:
