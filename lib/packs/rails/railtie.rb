@@ -14,13 +14,9 @@ module Packs
 
       config.after_initialize do |app|
         if defined?(Spring)
-          puts "Hello Db Blasters!"
           Packs::Specification::Configuration.fetch.pack_paths.each do |dir|
-            puts "#{dir}"
-            Dir["#{dir}/package.yml"].each { |f|
-              puts f
-              Spring.watch(f)
-            }
+            file = File.join(dir, "package.yml")
+            Spring.watch(file)
           end
         end
       end
