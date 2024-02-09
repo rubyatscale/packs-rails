@@ -8,10 +8,9 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - 2.7
           # See comment comes from https://github.com/ruby/setup-ruby#matrix-of-ruby-versions
           # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
-          - '3.0'
+          - '3.0.6'
           - 3.1
           - 3.2
           - 3.3
@@ -28,8 +27,10 @@ jobs:
       - name: Set up Ruby ${{ matrix.ruby }}
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          bundler-cache: false 
           ruby-version: ${{ matrix.ruby }}
+      - name: Update bundler
+        run: gem install bundler && bundle install
       - name: Run tests
         run: bundle exec rspec
   static_type_check:
