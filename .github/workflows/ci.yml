@@ -30,7 +30,7 @@ jobs:
           bundler-cache: false 
           ruby-version: ${{ matrix.ruby }}
       - name: Update bundler
-        run: bundle update --bundler && bundle install
+        run: gem install bundler && bundle install
       - name: Run tests
         run: bundle exec rspec
   static_type_check:
