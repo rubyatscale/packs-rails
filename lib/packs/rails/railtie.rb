@@ -15,8 +15,9 @@ module Packs
       config.after_initialize do |app|
         if defined?(Spring)
           Packs::Specification::Configuration.fetch.pack_paths.each do |dir|
-            file = File.join(dir, "package.yml")
-            Spring.watch(file)
+            Dir["#{dir}/package.yml"].each do |package_yml|
+              Spring.watch(package_yml)
+            end
           end
         end
       end
