@@ -2,7 +2,7 @@
 
 module Packs
   module Specification
-    class Configuration
+    class Configuration < T::Struct
     end
   end
 end
