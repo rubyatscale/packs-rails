@@ -61,6 +61,19 @@ If you wish to use a different directory name, eg `components` instead of `packs
 
 If you want to have your packs code namespaced without adding a directory with the pack's name into the directory structure, you can use the [automatic namespaces gem](https://github.com/gap777/automatic_namespaces).
 
+## Modify spring to detect pack moves
+
+If you use spring, when you move a pack, you'll want spring to update its cache
+
+Add this to one of your initializers
+```ruby
+Packs::Specification::Configuration.fetch.pack_paths.each do |dir|
+  Dir["#{dir}/package.yml"].each do |package_yml|
+    Spring.watch(package_yml)
+  end
+end
+```
+
 ### Splitting routes
 `packs-rails` allows you to split your application routes for every pack. You just have to create a file describing your routes and then `draw` them in your root `config/routes.rb` file (NOTE: the `draw` function is only in Rails 6.1+).
 
