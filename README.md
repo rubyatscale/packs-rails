@@ -88,7 +88,12 @@ end
 ```
 
 ### Making your Package an Engine
-Add `engine: true` to your `package.yml` to make it an actual Rails engine ([read more about what this means here](https://guides.rubyonrails.org/engines.html)):
+You can add `engine: true` to your `package.yml` to make it an actual [Rails engine](https://guides.rubyonrails.org/engines.html).
+
+It implicitly sets up a namespace for your pack and adds namespace isolation.
+
+You can then also use other functionality that engines provide, like per-pack routes, scoped url helpers, or a table name prefix.
+
 ```yml
 # packs/my_pack/package.yml
 enforce_dependencies: true
