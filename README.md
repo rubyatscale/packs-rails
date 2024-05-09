@@ -170,6 +170,23 @@ packs/
           my_private_namespaced_model_factory.rb
 ```
 
+#### rubocop-rails
+[rubocop-rails](https://github.com/rubocop/rubocop-rails) [targets paths](https://github.com/rubocop/rubocop-rails/blob/master/config/default.yml) starting with `app/`. You might need to override the `Include` globs to include your packs code. 
+
+Examples:
+```yml
+Rails/EnumHash:
+  Include:
+    - '**/app/models/**/*.rb'
+Rails/InverseOf:
+  Include:
+    - '**/app/models/**/*.rb'
+Rails/LexicallyScopedActionFilter:
+  Include:
+    - '**/app/controllers/**/*.rb'
+    - '**/app/mailers/**/*.rb'    
+```
+
 #### parallel_tests
 
 `parallel_tests` has it its own spec discovery mechanism, so packs-rails's RSpec integration doesn't do anything when you use them together.
