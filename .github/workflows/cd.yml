@@ -5,22 +5,8 @@ on:
     workflows: [CI]
     types: [completed]
     branches: [main]
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'schedule' }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Tag and Push Gem
-        id: tag-and-push-gem
-        uses: discourse/publish-rubygems-action@v2
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          GIT_EMAIL: ${{secrets.GUSTO_GIT_EMAIL}}
-          GIT_NAME: ${{secrets.GUSTO_GIT_NAME}}
-          RUBYGEMS_API_KEY: ${{secrets.RUBYGEMS_API_KEY}}
-      - name: Create GitHub Release
-        run: gh release create v${{steps.tag-and-push-gem.outputs.gem_version}} --generate-notes
-        if: ${{ steps.tag-and-push-gem.outputs.new_version == 'true' }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  call-workflow-from-shared-config:
+    uses: rubyatscale/shared-config/.github/workflows/cd.yml@main
+    secrets: inherit
