@@ -1,0 +1,8 @@
+name: 'Close stale issues and PRs'
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  call-workflow-from-shared-config:
+    uses: rubyatscale/shared-config/.github/workflows/stale.yml@main
