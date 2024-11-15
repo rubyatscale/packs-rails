@@ -33,7 +33,7 @@ module Packs
             # If it doesn't match a pack path, we leave it alone.
 
             to_run.map! do |path|
-              if pack = Packs.find(path)
+              if (pack = Packs.find(path))
                 [
                   pack,
                   *nested_packs_for(pack)
