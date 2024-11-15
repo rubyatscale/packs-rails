@@ -1,0 +1,123 @@
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+# See https://docs.rubocop.org/rubocop/configuration
+AllCops:
+  NewCops: enable
+  Exclude:
+    - vendor/bundle/**/**
+  TargetRubyVersion: 2.6
+
+Metrics/ParameterLists:
+  Enabled: false
+
+# This cop is annoying with typed configuration
+Style/TrivialAccessors:
+  Enabled: false
+
+# This rubocop is annoying when we use interfaces a lot
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Lint/DuplicateBranch:
+  Enabled: false
+
+# If is sometimes easier to think about than unless sometimes
+Style/NegatedIf:
+  Enabled: false
+
+# Disabling for now until it's clearer why we want this
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# It's nice to be able to read the condition first before reading the code within the condition
+Style/GuardClause:
+  Enabled: false
+
+#
+# Leaving length metrics to human judgment for now
+#
+Metrics/ModuleLength:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+# This doesn't feel useful
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+# This doesn't feel useful
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# It's nice to be able to read the condition first before reading the code within the condition
+Style/IfUnlessModifier:
+  Enabled: false
+
+# This leads to code that is not very readable at times (very long lines)
+Style/ConditionalAssignment:
+  Enabled: false
+
+# For now, we prefer to lean on clean method signatures as documentation. We may change this later.
+Style/Documentation:
+  Enabled: false
+
+# Sometimes we leave comments in empty else statements intentionally
+Style/EmptyElse:
+  Enabled: false
+
+# Sometimes we want to more explicitly list out a condition
+Style/RedundantCondition:
+  Enabled: false
+
+# This leads to code that is not very readable at times (very long lines)
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+# Blocks across lines are okay sometimes
+Style/BlockDelimiters:
+  Enabled: false
+
+# Sometimes we like methods like `get_packages`
+Naming/AccessorMethodName:
+  Enabled: false
+
+# This leads to code that is not very readable at times (very long lines)
+Layout/FirstArgumentIndentation:
+  Enabled: false
+
+# This leads to code that is not very readable at times (very long lines)
+Layout/ArgumentAlignment:
+  Enabled: false
+
+Style/AccessorGrouping:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: true
+  EnforcedStyle: gemspec
