@@ -1,6 +1,6 @@
 require 'packs'
-require "active_support"
-require "rails/application"
+require 'active_support'
+require 'rails/application'
 require 'sorbet-runtime'
 
 module Packs
@@ -22,7 +22,7 @@ module Packs
     end
 
     @config = ActiveSupport::OrderedOptions.new
-    @config.paths = %w(
+    @config.paths = %w[
       app
       app/controllers
       app/channels
@@ -36,8 +36,8 @@ module Packs
       config/locales
       config/initializers
       config/routes
-    )
+    ]
   end
 
-  require "packs/rails/railtie"
+  require 'packs/rails/railtie'
 end

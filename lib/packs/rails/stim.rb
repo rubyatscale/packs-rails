@@ -23,10 +23,10 @@ module Packs
         (Packs::Rails.config.paths +
           # In addition to the paths we've delegated to the main app, we don't allow
           # Engine Packs to have various capabilities.
-          %w(
+          %w[
             config/environments
             db/migrate
-          )
+          ]
         ).uniq.each do |path|
           engine.paths[path] = nil
         end

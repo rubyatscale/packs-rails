@@ -17,6 +17,7 @@ module Packs
 
             pack_paths = Packs.all.map do |pack|
               next if pack.is_gem?
+
               spec_path = pack.relative_path.join(default_path)
               spec_path.to_s if spec_path.exist?
             end
@@ -28,11 +29,11 @@ module Packs
             # end of it.
             #
             # packs/my_pack => packs/my_pack/spec
-            # 
+            #
             # If it doesn't match a pack path, we leave it alone.
 
             to_run.map! do |path|
-              if pack = Packs.find(path)
+              if (pack = Packs.find(path))
                 [
                   pack,
                   *nested_packs_for(pack)

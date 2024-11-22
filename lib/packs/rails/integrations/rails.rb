@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 # typed: true
 
-require "active_support/inflections"
+require 'active_support/inflections'
 
 module Packs
   module Rails
     module Integrations
       class Rails
-        CONFIG_ROUTES_PATH =  "config/routes".freeze
+        CONFIG_ROUTES_PATH = 'config/routes'
 
         def initialize(app)
           @app = app
@@ -42,12 +42,13 @@ module Packs
 
         def pre_rails_6_1?
           return @_pre_rails_6_1 if defined?(@_pre_rails_6_1)
-          @_pre_rails_6_1 = ::Rails.gem_version < Gem::Version.new("6.1")
+
+          @_pre_rails_6_1 = ::Rails.gem_version < Gem::Version.new('6.1')
         end
 
         def create_namespace(name)
           namespace = ActiveSupport::Inflector.camelize(name)
-          namespace.split("::").reduce(Object) do |base, mod|
+          namespace.split('::').reduce(Object) do |base, mod|
             if base.const_defined?(mod, false)
               base.const_get(mod, false)
             else
@@ -57,10 +58,10 @@ module Packs
         end
 
         def create_engine(pack)
-          name = pack.metadata.fetch("engine_name", pack.last_name)
+          name = pack.metadata.fetch('engine_name', pack.last_name)
           namespace = create_namespace(name)
           stim = Stim.new(pack, namespace)
-          namespace.const_set("Engine", Class.new(::Rails::Engine)).include(stim)
+          namespace.const_set('Engine', Class.new(::Rails::Engine)).include(stim)
         end
       end
     end

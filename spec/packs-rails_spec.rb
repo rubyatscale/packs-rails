@@ -1,68 +1,68 @@
-require "pathname"
+require 'pathname'
 
 rails_dir = require_test_rails_application
 
 RSpec.describe Packs::Rails do
-  it "autoloads classes in autoload paths" do
-    expect(defined?(Shirts::ShortSleeve)).to eq("constant")
+  it 'autoloads classes in autoload paths' do
+    expect(defined?(Shirts::ShortSleeve)).to eq('constant')
   end
 
-  it "adds pack paths to the application" do
+  it 'adds pack paths to the application' do
     Packs::Rails.config.paths.each do |path|
-      expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "shirts", path))
+      expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', 'shirts', path))
     end
   end
 
-  it "does not add gem paths to the application" do
+  it 'does not add gem paths to the application' do
     Packs::Rails.config.paths.each do |path|
-      expect(Rails.application.paths[path].paths).to_not include(rails_dir.join('components', "jackets", path))
+      expect(Rails.application.paths[path].paths).to_not include(rails_dir.join('components', 'jackets', path))
     end
   end
 
-  it "creates engines namespace for engine packs" do
-    expect(defined?(Shoes::Engine)).to eq("constant")
+  it 'creates engines namespace for engine packs' do
+    expect(defined?(Shoes::Engine)).to eq('constant')
   end
 
   context 'nested packs' do
-    it "autoloads classes in autoload paths" do
-      expect(defined?(Shorts::Linen)).to eq("constant")
+    it 'autoloads classes in autoload paths' do
+      expect(defined?(Shorts::Linen)).to eq('constant')
     end
 
-    it "adds pack paths to the application" do
+    it 'adds pack paths to the application' do
       Packs::Rails.config.paths.each do |path|
-        expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "pants", "shorts", path))
+        expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', 'pants', 'shorts', path))
       end
     end
 
-    it "creates engines namespace for engine packs" do
-      expect(defined?(Shorts::Engine)).to eq("constant")
+    it 'creates engines namespace for engine packs' do
+      expect(defined?(Shorts::Engine)).to eq('constant')
     end
   end
 
   context 'custom engine name' do
-    it "autoloads classes in autoload paths" do
-      expect(defined?(Pants::Jeans::Bootcut)).to eq("constant")
+    it 'autoloads classes in autoload paths' do
+      expect(defined?(Pants::Jeans::Bootcut)).to eq('constant')
     end
 
-    it "adds pack paths to the application" do
+    it 'adds pack paths to the application' do
       Packs::Rails.config.paths.each do |path|
-        expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', "pants", "jeans", path))
+        expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', 'pants', 'jeans', path))
       end
     end
 
-    it "creates engines namespace for engine packs" do
-      expect(defined?(Pants::Jeans::Engine)).to eq("constant")
+    it 'creates engines namespace for engine packs' do
+      expect(defined?(Pants::Jeans::Engine)).to eq('constant')
     end
   end
 
   context 'alternate roots' do
-    it "autoloads classes in autoload paths" do
-      expect(defined?(Belts::Brown)).to eq("constant")
+    it 'autoloads classes in autoload paths' do
+      expect(defined?(Belts::Brown)).to eq('constant')
     end
 
-    it "adds pack paths to the application" do
+    it 'adds pack paths to the application' do
       Packs::Rails.config.paths.each do |path|
-        expect(Rails.application.paths[path].paths).to include(rails_dir.join('utilities', "belts", path))
+        expect(Rails.application.paths[path].paths).to include(rails_dir.join('utilities', 'belts', path))
       end
     end
   end

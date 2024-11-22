@@ -1,4 +1,4 @@
-require "rails/railtie"
+require 'rails/railtie'
 
 module Packs
   module Rails
@@ -11,7 +11,6 @@ module Packs
         # hook into packs-rails via ActiveSupport hooks.
         ActiveSupport.run_load_hooks(:packs_rails, Packs)
       end
-      
     end
   end
 end
