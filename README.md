@@ -171,17 +171,17 @@ packs/
 ```
 
 #### rubocop-rails
-[rubocop-rails](https://github.com/rubocop/rubocop-rails) [targets paths](https://github.com/rubocop/rubocop-rails/blob/master/config/default.yml) starting with `app/`. You might need to override the `Include` globs to include your packs code. 
+
+Use [rubocop-rails](https://github.com/rubocop/rubocop-rails) 2.32.0 or higher.
+
+If you has your own custom cop, you might need to use `Include` globs to include your packs code.
 
 Examples:
 ```yml
-Rails/EnumHash:
+Custom/CustomCopOne:
   Include:
     - '**/app/models/**/*.rb'
-Rails/InverseOf:
-  Include:
-    - '**/app/models/**/*.rb'
-Rails/LexicallyScopedActionFilter:
+Custom/CustomCopTwo:
   Include:
     - '**/app/controllers/**/*.rb'
     - '**/app/mailers/**/*.rb'    
