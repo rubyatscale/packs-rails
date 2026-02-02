@@ -12,12 +12,13 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - 3.1
           - 3.2
           - 3.3
+          - 3.4
+          - 4.0
         rails:
-          - "7.0"
-          - 6.1
+          - 8.0
+          - 7.0
     env:
       BUNDLE_GEMFILE: Gemfile
       RAILS_VERSION: ${{ matrix.rails }}
