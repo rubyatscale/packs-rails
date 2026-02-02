@@ -14,16 +14,7 @@ module Packs
 
           Packs::Rails.config.paths.freeze
 
-          create_engines
           inject_paths
-        end
-
-        def create_engines
-          Packs.all.reject(&:is_gem?).each do |pack|
-            next unless pack.metadata['engine']
-
-            create_engine(pack)
-          end
         end
 
         def inject_paths
@@ -44,24 +35,6 @@ module Packs
           return @_pre_rails_6_1 if defined?(@_pre_rails_6_1)
 
           @_pre_rails_6_1 = ::Rails.gem_version < Gem::Version.new('6.1')
-        end
-
-        def create_namespace(name)
-          namespace = ActiveSupport::Inflector.camelize(name)
-          namespace.split('::').reduce(Object) do |base, mod|
-            if base.const_defined?(mod, false)
-              base.const_get(mod, false)
-            else
-              base.const_set(mod, Module.new)
-            end
-          end
-        end
-
-        def create_engine(pack)
-          name = pack.metadata.fetch('engine_name', pack.last_name)
-          namespace = create_namespace(name)
-          stim = Stim.new(pack, namespace)
-          namespace.const_set('Engine', Class.new(::Rails::Engine)).include(stim)
         end
       end
     end
