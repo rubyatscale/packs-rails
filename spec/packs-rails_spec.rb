@@ -19,10 +19,6 @@ RSpec.describe Packs::Rails do
     end
   end
 
-  it 'creates engines namespace for engine packs' do
-    expect(defined?(Shoes::Engine)).to eq('constant')
-  end
-
   context 'nested packs' do
     it 'autoloads classes in autoload paths' do
       expect(defined?(Shorts::Linen)).to eq('constant')
@@ -32,26 +28,6 @@ RSpec.describe Packs::Rails do
       Packs::Rails.config.paths.each do |path|
         expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', 'pants', 'shorts', path))
       end
-    end
-
-    it 'creates engines namespace for engine packs' do
-      expect(defined?(Shorts::Engine)).to eq('constant')
-    end
-  end
-
-  context 'custom engine name' do
-    it 'autoloads classes in autoload paths' do
-      expect(defined?(Pants::Jeans::Bootcut)).to eq('constant')
-    end
-
-    it 'adds pack paths to the application' do
-      Packs::Rails.config.paths.each do |path|
-        expect(Rails.application.paths[path].paths).to include(rails_dir.join('packs', 'pants', 'jeans', path))
-      end
-    end
-
-    it 'creates engines namespace for engine packs' do
-      expect(defined?(Pants::Jeans::Engine)).to eq('constant')
     end
   end
 

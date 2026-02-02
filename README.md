@@ -87,33 +87,6 @@ Rails.application.routes.draw do
 end
 ```
 
-### Making your Package an Engine
-You can add `engine: true` to your `package.yml` to make it an actual [Rails engine](https://guides.rubyonrails.org/engines.html).
-
-It implicitly sets up a namespace for your pack and adds namespace isolation.
-
-You can then also use other functionality that engines provide, like per-pack routes, scoped url helpers, or a table name prefix.
-
-```yml
-# packs/my_pack/package.yml
-enforce_dependencies: true
-enforce_privacy: true
-metadata:
-  engine: true
-```
-
-Add `engine_name: ` to your `package.yml` to use a specific, maybe namespaced, engine name instead of the last package folder name.
-```yml
-# packs/my_pack/package.yml
-enforce_dependencies: true
-enforce_privacy: true
-metadata:
-  engine: true
-  engine_name: namespaced/my_pack
-```
-
-The engine is created as `Namespaced::MyPack::Engine` instead of `MyPack::Engine`.
-
 ## Ecosystem and Integrations
 
 ### RSpec Integration
@@ -171,7 +144,7 @@ packs/
 ```
 
 #### rubocop-rails
-[rubocop-rails](https://github.com/rubocop/rubocop-rails) [targets paths](https://github.com/rubocop/rubocop-rails/blob/master/config/default.yml) starting with `app/`. You might need to override the `Include` globs to include your packs code. 
+[rubocop-rails](https://github.com/rubocop/rubocop-rails) [targets paths](https://github.com/rubocop/rubocop-rails/blob/master/config/default.yml) starting with `app/`. You might need to override the `Include` globs to include your packs code.
 
 Examples:
 ```yml
@@ -184,7 +157,7 @@ Rails/InverseOf:
 Rails/LexicallyScopedActionFilter:
   Include:
     - '**/app/controllers/**/*.rb'
-    - '**/app/mailers/**/*.rb'    
+    - '**/app/mailers/**/*.rb'
 ```
 
 #### parallel_tests
