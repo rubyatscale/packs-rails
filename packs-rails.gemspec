@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activesupport'
   spec.add_dependency 'packs'
-  spec.add_dependency 'railties'
+  spec.add_dependency 'railties', '>= 7'
 
   spec.add_development_dependency 'debug'
   spec.add_development_dependency 'rake'
