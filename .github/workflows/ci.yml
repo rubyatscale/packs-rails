@@ -18,8 +18,8 @@ jobs:
           - 3.4
           - 4.0
         rails:
-          - 8.0
-          - 7.0
+          - "8.0"
+          - "7.0"
     env:
       BUNDLE_GEMFILE: Gemfile
       RAILS_VERSION: ${{ matrix.rails }}
