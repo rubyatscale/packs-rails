@@ -1,14 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 8.0'
 
 gem 'packs-rails', path: File.expand_path('../../..', __dir__)
 
-gem 'sprockets-rails'
+gem 'sqlite3', '~> 2.0'
 
-gem 'sqlite3', '~> 1.4'
-
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 6.0'
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 

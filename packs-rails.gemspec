@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'packs-rails establishes and implements a set of conventions for splitting up large monoliths.'
   spec.homepage      = 'https://github.com/rubyatscale/packs-rails'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.7')
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.1')
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/rubyatscale/packs-rails'
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activesupport'
   spec.add_dependency 'packs'
-  spec.add_dependency 'railties'
+  spec.add_dependency 'railties', '>= 7'
 
   spec.add_development_dependency 'debug'
   spec.add_development_dependency 'rake'

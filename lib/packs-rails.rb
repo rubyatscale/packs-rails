@@ -9,7 +9,6 @@ module Packs
 
     autoload :Integrations
     autoload :Railtie
-    autoload :Stim
 
     class Error < StandardError; end
 
