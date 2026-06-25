@@ -14,7 +14,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - vendor/bundle/**/**
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.3
 
 Metrics/ParameterLists:
   Enabled: false
