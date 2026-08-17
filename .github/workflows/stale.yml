@@ -5,4 +5,7 @@ on:
     - cron: '0 0 * * *'
 jobs:
   call-workflow-from-shared-config:
+    permissions:
+      issues: write
+      pull-requests: write
     uses: rubyatscale/shared-config/.github/workflows/stale.yml@main
