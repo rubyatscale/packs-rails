@@ -6,4 +6,6 @@ on:
       - opened
 jobs:
   call-workflow-from-shared-config:
+    permissions:
+      issues: write
     uses: rubyatscale/shared-config/.github/workflows/triage.yml@main
