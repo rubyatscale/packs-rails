@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 
 rails_dir = require_test_rails_application
