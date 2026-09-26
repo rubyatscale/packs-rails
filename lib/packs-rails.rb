@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'packs'
 require 'active_support'
 require 'rails/application'

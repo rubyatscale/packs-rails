@@ -37,10 +37,6 @@ Lint/DuplicateBranch:
 Style/NegatedIf:
   Enabled: false
 
-# Disabling for now until it's clearer why we want this
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 # It's nice to be able to read the condition first before reading the code within the condition
 Style/GuardClause:
   Enabled: false

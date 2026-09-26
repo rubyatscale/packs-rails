@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/setup'
 require 'packs-rails'
 require 'packs/rspec/support'
