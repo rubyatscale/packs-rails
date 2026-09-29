@@ -8,4 +8,4 @@ jobs:
     permissions:
       issues: write
       pull-requests: write
-    uses: rubyatscale/shared-config/.github/workflows/stale.yml@main
+    uses: rubyatscale/shared-config/.github/workflows/stale.yml@main # zizmor: ignore[unpinned-uses] internal reusable workflow tracked at @main by convention so shared-config updates propagate automatically

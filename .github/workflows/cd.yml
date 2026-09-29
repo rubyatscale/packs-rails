@@ -1,6 +1,6 @@
 name: CD
 
-on:
+on: # zizmor: ignore[dangerous-triggers] deploy-after-CI-passes is the standard rubyatscale release pattern; the called workflow only tags/publishes on main
   workflow_run:
     workflows: [CI]
     types: [completed]
@@ -10,5 +10,5 @@ jobs:
   call-workflow-from-shared-config:
     permissions:
       contents: write
-    uses: rubyatscale/shared-config/.github/workflows/cd.yml@main
+    uses: rubyatscale/shared-config/.github/workflows/cd.yml@main # zizmor: ignore[unpinned-uses,secrets-inherit] internal reusable workflow tracked at @main by convention so shared-config updates propagate automatically; environments are managed by callers
     secrets: inherit
