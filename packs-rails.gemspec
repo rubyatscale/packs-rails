@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'activesupport'
-  spec.add_dependency 'packs'
+  spec.add_dependency 'packs-specification'
   spec.add_dependency 'railties', '>= 7'
 
   spec.add_development_dependency 'debug'
