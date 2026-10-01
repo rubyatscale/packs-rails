@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'packs'
+require 'packs-specification'
 require 'active_support'
 require 'rails/application'
 require 'sorbet-runtime'
